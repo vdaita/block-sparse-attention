@@ -1,0 +1,19 @@
+# Reshaped appearance: (bsz, length, num_heads, head_dim)
+
+def avg_softmax_pooling(query_states, key_states, top_k, block_size):
+    ...
+
+def softmax_avg_pooling(query_states, key_states, top_k, block_size):
+    ...
+
+def max_softmax_pooling(query_states, key_states, top_k, block_size):
+    ...
+
+def softmax_max_pooling(query_states, key_states, top_k, block_size):
+    ...
+
+def avg_pooling(query_states, key_states, top_k, block_size):
+    ...
+
+def max_pooling(query_states, key_states, top_k, block_size):
+    ...
