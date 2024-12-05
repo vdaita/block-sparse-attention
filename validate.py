@@ -4,7 +4,7 @@ import torch
 from torch.nn import functional as F
 from torch.utils.cpp_extension import load
 
-os.environ["TORCH_ARCH_LIST"] = "8.0"
+os.environ["TORCH_CUDA_ARCH_LIST"] = "8.0"
 
 # Load the CUDA extensions
 block_sparse_attention_v1 = load(
