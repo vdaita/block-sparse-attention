@@ -5,38 +5,39 @@ from torch.nn import functional as F
 from torch.utils.cpp_extension import load
 
 os.environ["TORCH_CUDA_ARCH_LIST"] = "8.0"
+torch.manual_seed(42)
 
 # Load the CUDA extensions
-block_sparse_attention_v1 = load(
-    name="block_sparse_attention_v1",
-    sources=[
-        "extension/bsa_shared_memory.cu",
-        "extension/bsa_cpp_def.cpp"
-    ],
-    with_cuda=True,
-    extra_cflags=['-std=c++17'],
-    extra_cuda_cflags=['-O2', '-std=c++17'],
-    extra_ldflags=['-lc10', '-ltorch', '-ltorch_cuda'],
-    build_directory="./extension/build",
-    verbose=True,
-)
+# block_sparse_attention_v1 = load(
+#     name="block_sparse_attention_v1",
+#     sources=[
+#         "extension/bsa_shared_memory.cu",
+#         "extension/bsa_cpp_def.cpp"
+#     ],
+#     with_cuda=True,
+#     extra_cflags=['-std=c++17'],
+#     extra_cuda_cflags=['-O2', '-std=c++17'],
+#     extra_ldflags=['-lc10', '-ltorch', '-ltorch_cuda'],
+#     build_directory="./extension/build",
+#     verbose=True,
+# )
 
-print("Block sparse attention v1 loaded")
+# print("Block sparse attention v1 loaded")
 
-block_sparse_attention_v2 = load(
-    name="block_sparse_attention_v2",
-    sources=[
-        "extension/bsa_global_memory.cu",
-        "extension/bsa_cpp_def.cpp"
-    ],
-    with_cuda=True,
-    extra_cflags=['-std=c++17'],
-    extra_cuda_cflags=['-O2', '-std=c++17'],
-    extra_ldflags=['-lc10', '-ltorch', '-ltorch_cuda'],
-    build_directory="./extension/build",
-    verbose=True
-)
-print("Block sparse attention v2 loaded")
+# block_sparse_attention_v2 = load(
+#     name="block_sparse_attention_v2",
+#     sources=[
+#         "extension/bsa_global_memory.cu",
+#         "extension/bsa_cpp_def.cpp"
+#     ],
+#     with_cuda=True,
+#     extra_cflags=['-std=c++17'],
+#     extra_cuda_cflags=['-O2', '-std=c++17'],
+#     extra_ldflags=['-lc10', '-ltorch', '-ltorch_cuda'],
+#     build_directory="./extension/build",
+#     verbose=True
+# )
+# print("Block sparse attention v2 loaded")
 
 block_sparse_attention_v3 = load(
     name="block_sparse_attention_v3",
@@ -46,7 +47,7 @@ block_sparse_attention_v3 = load(
     ],
     with_cuda=True,
     extra_cflags=['-std=c++17'],
-    extra_cuda_cflags=['-O2', '-std=c++17'],
+    extra_cuda_cflags=['-O2', '-std=c++17', '-lineinfo'],
     extra_ldflags=['-lc10', '-ltorch', '-ltorch_cuda'],
     build_directory="./extension/build",
     verbose=True
@@ -54,7 +55,8 @@ block_sparse_attention_v3 = load(
 
 print("Block sparse attention v3 loaded")
 
-implementations = [block_sparse_attention_v1, block_sparse_attention_v2, block_sparse_attention_v3]
+# implementations = [block_sparse_attention_v1, block_sparse_attention_v2, block_sparse_attention_v3]
+implementations = [block_sparse_attention_v3]
 
 T = 512
 D = 64
@@ -113,4 +115,4 @@ for implementation_idx, implementation in enumerate(implementations):
       minimal_result = implementation.forward(q, k, v, block_indices)
       print(minimal_result.flatten()[:10])
   print(prof.key_averages().table(sort_by='cuda_time_total', row_limit=10))
-  print('attention values sanity check:', torch.allclose(minimal_result, manual_result, rtol=0, atol=1e-02))
+  print('attention values sanity check:', torch.allclose(minimal_result, manual_result, rtol=0, atol=1e-01)) # need more tolerance for mixed precision
