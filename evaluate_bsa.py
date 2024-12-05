@@ -27,7 +27,7 @@ sparsities = [0.75, 0.5, 0.25, 0.2, 0.15, 0.1, 0.05]
 
 attention_approaches = [
 
-] # Here, block size is 64
+] # block size can be 16 (custom kernel), or 64 (flex-attention)
 
 mse = {
     sparsity: {

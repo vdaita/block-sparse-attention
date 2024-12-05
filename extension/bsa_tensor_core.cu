@@ -1,10 +1,9 @@
-#include <cuda_runtime.h>
 #include <torch/extension.h>
 #include <torch/script.h>
 #include <mma.h>
 #include <cuda_fp16.h>
 
-#define D 64
+#define D 128
 constexpr int BLOCK_SIZE = 16;
 using namespace nvcuda;
 
@@ -33,8 +32,8 @@ void forward_kernel(
     wmma::fragment<wmma::matrix_b, 16, 16, 16, half, wmma::col_major> b_frag;
     wmma::fragment<wmma::accumulator, 16, 16, 16, float> acc_frag;
 
-    __shared__ half sharedA[16][16];
-    __shared__ half sharedB[16][16];
+    __shared__ half sharedA[BLOCK_SIZE * 16];
+    __shared__ half sharedB[BLOCK_SIZE * 16];
 
     for(int i = 0; i < num_blocks_selected; i++){
         int block = block_indices[(b * num_blocks + bx) * num_blocks_selected + i];
@@ -46,19 +45,25 @@ void forward_kernel(
         for(int q_chunk_start = 0; q_chunk_start < D; q_chunk_start += 16){
           // load the query chunk
           for(int dq = q_chunk_start; dq < q_chunk_start + 16; dq++){
-            sharedA[tx][dq - q_chunk_start] = Q[q_idx + dq];
+            sharedA[tx * 16 + (dq - q_chunk_start)] = Q[q_idx + dq];
           }
+          __syncthreads();
+          wmma::load_matrix_sync(a_frag, sharedA, 16);
           for(int k_chunk_start = 0; k_chunk_start < D; k_chunk_start += 16){
             // load the kv chunk
             for(int dk = k_chunk_start; dk < k_chunk_start + 16; dk++){
-              sharedB[tx][dk - k_chunk_start] = K[kv_idx + dk];
+              // sharedB[tx * 16 + (dk - k_chunk_start)] = K[kv_idx + dk];
+              // transpose as you load into sharedB
+              sharedB[(dk - k_chunk_start) * 16 + tx] = K[kv_idx + dk];
             }
+            __syncthreads();
+            wmma::load_matrix_sync(b_frag, sharedB, 16);
             wmma::mma_sync(acc_frag, a_frag, b_frag, acc_frag);
           }
         }
 
         for(int j = 0; j < BLOCK_SIZE; j++){
-          new_max = fmaxf(new_max, acc_frag.x[tx * BLOCK_SIZE + j]);
+          new_max = fmaxf(new_max, acc_frag.x[tx * 16 + j]);
         }
 
         float difference = expf(curr_max - new_max);
@@ -68,7 +73,7 @@ void forward_kernel(
         }
 
         for(int j = 0; j < BLOCK_SIZE; j++){
-            float norm_weight = expf(acc_frag.x[tx * BLOCK_SIZE + j] - new_max);
+            float norm_weight = expf(acc_frag.x[tx * 16 + j] - new_max);
             for(int d = 0; d < D; d++){
                 acc[d] += norm_weight * V[kv_idx + d];
             }
