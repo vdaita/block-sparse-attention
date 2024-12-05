@@ -4,6 +4,8 @@ import torch
 from torch.nn import functional as F
 from torch.utils.cpp_extension import load
 
+os.environ["TORCH_ARCH_LIST"] = "8.0"
+
 # Load the CUDA extensions
 block_sparse_attention_v1 = load(
     name="block_sparse_attention_v1",
@@ -18,6 +20,8 @@ block_sparse_attention_v1 = load(
     build_directory="./extension/build"
 )
 
+print("Block sparse attention v1 loaded")
+
 block_sparse_attention_v2 = load(
     name="block_sparse_attention_v2",
     sources=[
@@ -30,6 +34,7 @@ block_sparse_attention_v2 = load(
     extra_ldflags=['-lc10', '-ltorch', '-ltorch_cuda'],
     build_directory="./extension/build"
 )
+print("Block sparse attention v2 loaded")
 
 block_sparse_attention_v3 = load(
     name="block_sparse_attention_v3",
@@ -43,6 +48,8 @@ block_sparse_attention_v3 = load(
     extra_ldflags=['-lc10', '-ltorch', '-ltorch_cuda'],
     build_directory="./extension/build"
 )
+
+print("Block sparse attention v3 loaded")
 
 implementations = [block_sparse_attention_v1, block_sparse_attention_v2, block_sparse_attention_v3]
 
