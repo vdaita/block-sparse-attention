@@ -11,7 +11,6 @@ block_sparse_attention_v1 = load(
         "extension/bsa_shared_memory.cu",
         "extension/bsa_cpp_def.cpp"
     ],
-    functions=['forward'],
     with_cuda=True,
     extra_cflags=['-std=c++17'],
     extra_cuda_cflags=['-O2', '-std=c++17'],
@@ -25,7 +24,6 @@ block_sparse_attention_v2 = load(
         "extension/bsa_global_memory.cu",
         "extension/bsa_cpp_def.cpp"
     ],
-    functions=['forward'],
     with_cuda=True,
     extra_cflags=['-std=c++17'],
     extra_cuda_cflags=['-O2', '-std=c++17'],
@@ -39,7 +37,6 @@ block_sparse_attention_v3 = load(
         "extension/bsa_tensor_core.cu",
         "extension/bsa_cpp_def.cpp"
     ],
-    functions=['forward'],
     with_cuda=True,
     extra_cflags=['-std=c++17'],
     extra_cuda_cflags=['-O2', '-std=c++17'],
