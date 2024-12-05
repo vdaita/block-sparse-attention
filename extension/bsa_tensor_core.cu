@@ -3,7 +3,7 @@
 #include <mma.h>
 #include <cuda_fp16.h>
 
-#define D 128
+#define D 64
 constexpr int BLOCK_SIZE = 16;
 using namespace nvcuda;
 
