@@ -17,7 +17,8 @@ block_sparse_attention_v1 = load(
     extra_cflags=['-std=c++17'],
     extra_cuda_cflags=['-O2', '-std=c++17'],
     extra_ldflags=['-lc10', '-ltorch', '-ltorch_cuda'],
-    build_directory="./extension/build"
+    build_directory="./extension/build",
+    verbose=True,
 )
 
 print("Block sparse attention v1 loaded")
@@ -32,7 +33,8 @@ block_sparse_attention_v2 = load(
     extra_cflags=['-std=c++17'],
     extra_cuda_cflags=['-O2', '-std=c++17'],
     extra_ldflags=['-lc10', '-ltorch', '-ltorch_cuda'],
-    build_directory="./extension/build"
+    build_directory="./extension/build",
+    verbose=True
 )
 print("Block sparse attention v2 loaded")
 
@@ -46,7 +48,8 @@ block_sparse_attention_v3 = load(
     extra_cflags=['-std=c++17'],
     extra_cuda_cflags=['-O2', '-std=c++17'],
     extra_ldflags=['-lc10', '-ltorch', '-ltorch_cuda'],
-    build_directory="./extension/build"
+    build_directory="./extension/build",
+    verbose=True
 )
 
 print("Block sparse attention v3 loaded")
