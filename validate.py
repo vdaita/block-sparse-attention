@@ -58,7 +58,7 @@ print("Block sparse attention v3 loaded")
 # implementations = [block_sparse_attention_v1, block_sparse_attention_v2, block_sparse_attention_v3]
 implementations = [block_sparse_attention_v3]
 
-T = 512
+T = 32768
 D = 64
 B = 8
 block_size = 16
