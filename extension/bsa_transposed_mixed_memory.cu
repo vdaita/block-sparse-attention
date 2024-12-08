@@ -11,16 +11,13 @@ void forward_kernel(
     const float* V,
     const int* block_indices,
     const int num_blocks_selected,
+    const int num_blocks,
     float* output,
     const int T
 ) {
     int tx = threadIdx.x;
     int bx = blockIdx.x;
     int b = blockIdx.y;
-
-    __shared__ float shared_q[BLOCK_SIZE][D];
-    __shared__ float shared_k[BLOCK_SIZE][D];
-    __shared__ float shared_v[BLOCK_SIZE][D];
 
     float P[BLOCK_SIZE];
     float acc[D] = {0};
@@ -29,32 +26,26 @@ void forward_kernel(
     float curr_max = -INFINITY;
 
     // int q_idx = (b * T + bx * BLOCK_SIZE + tx) * D;
+    
+    __shared__ float shared_q[D][BLOCK_SIZE];
     for(int d = 0; d < D; d++){
-        shared_q[tx][d] = Q[(b * T * D) + (d * T) + (bx * BLOCK_SIZE + tx)];
+        shared_q[d][tx] = Q[(b * T * D) + (d * T) + (bx * BLOCK_SIZE + tx)];
     }
 
     __syncthreads();
 
     for(int i = 0; i < num_blocks_selected; i++){
-        int block = block_indices[(b * ((T + BLOCK_SIZE - 1) / BLOCK_SIZE) + bx) * num_blocks_selected + i];
-        int kv_idx = (b * T + block * BLOCK_SIZE + tx) * D;
-        for(int d = 0; d < D; d++){
-            shared_k[tx][d] = K[kv_idx + d];
-            shared_v[tx][d] = V[kv_idx + d];
-        }
-        __syncthreads();
+        int block = block_indices[(b * num_blocks + bx) * num_blocks_selected + i];
 
         float new_max = curr_max;
         for(int j = 0; j < BLOCK_SIZE; j++){
             float weight = 0;
             for(int d = 0; d < D; d++){
-                weight += shared_q[tx][d] * shared_k[j][d];
+                weight += shared_q[d][tx] * K[(b * T * D) + (d * T) + (block * BLOCK_SIZE + j)];
             }
             new_max = fmaxf(new_max, weight);
             P[j] = weight;
         }
-
-        __syncthreads();
 
         float difference = expf(curr_max - new_max);
         sum *= difference;
@@ -65,19 +56,16 @@ void forward_kernel(
         for(int j = 0; j < BLOCK_SIZE; j++){
             float norm_weight = expf(P[j] - new_max);
             for(int d = 0; d < D; d++){
-                acc[d] += norm_weight * shared_v[j][d];
+                acc[d] += norm_weight * V[(b * T * D) + (d * T) + (block * BLOCK_SIZE + j)];
             }
             sum += norm_weight;
         }
 
         curr_max = new_max;
-
-        __syncthreads();
     }
 
-    int out_idx = (b * T + bx * BLOCK_SIZE + tx) * D;
     for(int d = 0; d < D; d++){
-        output[out_idx + d] = acc[d] / sum;
+        output[b * T * D + d * T + (bx * BLOCK_SIZE + tx)] = acc[d] / sum;
     }
 }
 
@@ -91,21 +79,27 @@ torch::Tensor forward(
     int T = queries.size(1);
     // D should match the macro D
     int num_blocks_selected = query_blocks.size(2);
+    int num_blocks = query_blocks.size(1);
 
     dim3 gridDim((T + BLOCK_SIZE - 1) / BLOCK_SIZE, B);
     dim3 blockDim(BLOCK_SIZE);
+    torch::Tensor queries_transposed = queries.transpose(1, 2).contiguous();
+    torch::Tensor keys_transposed = keys.transpose(1, 2).contiguous();
+    torch::Tensor values_transposed = values.transpose(1, 2).contiguous();
 
-    auto output = torch::zeros_like(queries);
-    
-    auto queries_transpose = queries.transpose(1, 2).contiguous();
 
-    float* Q = queries_transpose.data_ptr<float>();
-    float* K = keys.data_ptr<float>();
-    float* V = values.data_ptr<float>();
+    auto output_transposed = torch::zeros_like(queries_transposed);
+
+    float* Q = queries_transposed.data_ptr<float>();
+    float* K = keys_transposed.data_ptr<float>();
+    float* V = values_transposed.data_ptr<float>();
     int* QB_ptr = query_blocks.data_ptr<int>();
-    float* O = output.data_ptr<float>();
+    float* O_T = output_transposed.data_ptr<float>();
 
-    forward_kernel<<<gridDim, blockDim>>>(Q, K, V, QB_ptr, num_blocks_selected, O, T);
+    forward_kernel<<<gridDim, blockDim>>>(Q, K, V, QB_ptr, num_blocks_selected, num_blocks, O_T, T);
+
+    cudaDeviceSynchronize();
+    auto output = output_transposed.transpose(1, 2);
 
     return output;
 }
