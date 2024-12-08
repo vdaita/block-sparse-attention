@@ -24,25 +24,41 @@ torch.manual_seed(42)
 
 # print("Block sparse attention v1 loaded")
 
-# block_sparse_attention_v2 = load(
-#     name="block_sparse_attention_v2",
+block_sparse_attention_v2 = load(
+    name="block_sparse_attention_v2",
+    sources=[
+        "extension/bsa_global_memory.cu",
+        "extension/bsa_cpp_def.cpp"
+    ],
+    with_cuda=True,
+    extra_cflags=['-std=c++17'],
+    extra_cuda_cflags=['-O2', '-std=c++17'],
+    extra_ldflags=['-lc10', '-ltorch', '-ltorch_cuda'],
+    build_directory="./extension/build",
+    verbose=True
+)
+print("Block sparse attention v2 loaded")
+
+# block_sparse_attention_v3 = load(
+#     name="block_sparse_attention_v3",
 #     sources=[
-#         "extension/bsa_global_memory.cu",
+#         "extension/bsa_tensor_core.cu",
 #         "extension/bsa_cpp_def.cpp"
 #     ],
 #     with_cuda=True,
 #     extra_cflags=['-std=c++17'],
-#     extra_cuda_cflags=['-O2', '-std=c++17'],
+#     extra_cuda_cflags=['-O2', '-std=c++17', '-lineinfo'],
 #     extra_ldflags=['-lc10', '-ltorch', '-ltorch_cuda'],
 #     build_directory="./extension/build",
 #     verbose=True
 # )
-# print("Block sparse attention v2 loaded")
 
-block_sparse_attention_v3 = load(
-    name="block_sparse_attention_v3",
+# print("Block sparse attention v3 loaded")
+
+block_sparse_attention_v4 = load(
+    name="block_sparse_attention_v4",
     sources=[
-        "extension/bsa_tensor_core.cu",
+        "extension/bsa_transposed_mixed_memory.cu",
         "extension/bsa_cpp_def.cpp"
     ],
     with_cuda=True,
@@ -53,12 +69,12 @@ block_sparse_attention_v3 = load(
     verbose=True
 )
 
-print("Block sparse attention v3 loaded")
+print("Block sparse attention v4 loaded")
 
 # implementations = [block_sparse_attention_v1, block_sparse_attention_v2, block_sparse_attention_v3]
-implementations = [block_sparse_attention_v3]
+implementations = [block_sparse_attention_v2, block_sparse_attention_v4]
 
-T = 32768
+T = 2048
 D = 64
 B = 8
 block_size = 16
@@ -103,15 +119,16 @@ def baseline_block_sparse_attention(q, k, v, block_indices, block_size):
             O[b, query_block_index * block_size : (query_block_index + 1) * block_size, :] = output
     return O
 
-with torch.autograd.profiler.profile(use_cuda=True) as prof:
+with torch.autograd.profiler.profile(use_cuda=True, record_shapes=False, with_stack=False) as prof:
     manual_result = baseline_block_sparse_attention(q, k, v, block_indices, block_size)
     print(manual_result.flatten()[:10])
-print(prof.key_averages().table(sort_by='cuda_time_total', row_limit=10))
+# print(prof.key_averages().table(sort_by="cuda_time_total", row_limit=10))
+
 print('=== profiling custom cuda block flash attention ===')
 
 for implementation_idx, implementation in enumerate(implementations):
   print(f"Profiling implementation {implementation_idx}")
-  with torch.autograd.profiler.profile(use_cuda=True) as prof:
+  with torch.autograd.profiler.profile(use_cuda=True, record_shapes=False, with_stack=False) as prof:
       minimal_result = implementation.forward(q, k, v, block_indices)
       print(minimal_result.flatten()[:10])
   print(prof.key_averages().table(sort_by='cuda_time_total', row_limit=10))
