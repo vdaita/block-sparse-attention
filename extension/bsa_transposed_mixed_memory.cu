@@ -34,7 +34,7 @@ void forward_kernel(
 
     __syncthreads();
 
-    for(int i = 0; i < num_blocks_selected; i++){
+    for(int i = 0; i < ; i++){
         int block = block_indices[(b * num_blocks + bx) * num_blocks_selected + i];
 
         float new_max = curr_max;

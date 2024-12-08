@@ -55,10 +55,42 @@ print("Block sparse attention v2 loaded")
 
 # print("Block sparse attention v3 loaded")
 
-block_sparse_attention_v4 = load(
-    name="block_sparse_attention_v4",
+# block_sparse_attention_v4 = load(
+#     name="block_sparse_attention_v4",
+#     sources=[
+#         "extension/bsa_transposed_mixed_memory.cu",
+#         "extension/bsa_cpp_def.cpp"
+#     ],
+#     with_cuda=True,
+#     extra_cflags=['-std=c++17'],
+#     extra_cuda_cflags=['-O2', '-std=c++17', '-lineinfo'],
+#     extra_ldflags=['-lc10', '-ltorch', '-ltorch_cuda'],
+#     build_directory="./extension/build",
+#     verbose=True
+# )
+
+# print("Block sparse attention v4 loaded")
+
+# block_sparse_attention_v5 = load(
+#     name="block_sparse_attention_v5",
+#     sources=[
+#         "extension/bsa_split_computation.cu",
+#         "extension/bsa_cpp_def.cpp"
+#     ],
+#     with_cuda=True,
+#     extra_cflags=['-std=c++17'],
+#     extra_cuda_cflags=['-O2', '-std=c++17', '-lineinfo'],
+#     extra_ldflags=['-lc10', '-ltorch', '-ltorch_cuda'],
+#     build_directory="./extension/build",
+#     verbose=True
+# )
+
+# print("Block sparse attention v5 loaded")
+
+block_sparse_attention_v6 = load(
+    name="block_sparse_attention_v6",
     sources=[
-        "extension/bsa_transposed_mixed_memory.cu",
+        "extension/bsa_split_computation.cu",
         "extension/bsa_cpp_def.cpp"
     ],
     with_cuda=True,
@@ -69,10 +101,10 @@ block_sparse_attention_v4 = load(
     verbose=True
 )
 
-print("Block sparse attention v4 loaded")
+print("Block sparse attention v6 loaded")
 
 # implementations = [block_sparse_attention_v1, block_sparse_attention_v2, block_sparse_attention_v3]
-implementations = [block_sparse_attention_v2, block_sparse_attention_v4]
+implementations = [block_sparse_attention_v2, block_sparse_attention_v6]
 
 T = 2048
 D = 64
