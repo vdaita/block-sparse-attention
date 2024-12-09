@@ -103,6 +103,8 @@ LlamaForCausalLM.forward = custom_forward
 model = AutoModelForCausalLM.from_pretrained(model_name) 
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 ds = load_dataset(dataset_name, split="train")
+ds = ds.filter(lambda x: len(x["text"]) > 4096)
+ds = ds.filter(lambda x: len(x["text"]) < 16384)
 ds = ds.select(list(range(8)))
 
 prompts = ds["text"]
