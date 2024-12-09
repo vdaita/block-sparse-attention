@@ -25,7 +25,7 @@ void forward_kernel(
     int tx = threadIdx.x;
     int bx = blockIdx.x;
     int b = blockIdx.y;
-    int num_batches = blockIdx.y;
+    int num_batches = blockDim.y;
     
     int chunk_index = blockIdx.z;
 
@@ -164,14 +164,11 @@ __global__ void reduction_kernel(
     }
 
     for(int i = 0; i < NUM_CHUNKS; i++){
-        float difference = expf(-(global_max - local_max[i])); // when the global max is greater than the local max, it scales the local accumulated values proportionally
-        global_sum += local_sum[i] * difference;
-    }
-
-    for(int i = 0; i < NUM_CHUNKS; i++){
-        for(int d = 0; d < D; d++){
-            acc[d] += expf(-(global_max - local_max[i])) * chunked_out[i * B * T * D + x * D + d]; // sacle donw the values correspondifnyl 
-        }
+      float exp_diff = expf(local_max[i] - global_max);
+      global_sum += local_sum[i] * exp_diff;  
+      for(int d = 0; d < D; d++){
+          acc[d] += exp_diff * chunked_out[i * B * T * D + x * D + d]; // sacle donw the values correspondifnyl 
+      }
     }
 
     for(int i = 0; i < D; i++){
@@ -202,13 +199,13 @@ torch::Tensor forward(
     int* QB_ptr = query_blocks.data_ptr<int>();
     float* O = output.data_ptr<float>();
 
-    auto chunked_output = torch::zeros({NUM_CHUNKS, B, T, D}, queries.options());
+    auto chunked_output = torch::zeros({NUM_CHUNKS, B, T, D}, queries.options()).contiguous();
     float* chunked_output_ptr = chunked_output.data_ptr<float>();
     
-    auto chunked_max = torch::zeros({NUM_CHUNKS, B, T}, queries.options());
+    auto chunked_max = torch::zeros({NUM_CHUNKS, B, T}, queries.options()).contiguous();
     float* chunked_max_ptr = chunked_max.data_ptr<float>();
 
-    auto chunked_sum = torch::zeros({NUM_CHUNKS, B, T}, queries.options());
+    auto chunked_sum = torch::zeros({NUM_CHUNKS, B, T}, queries.options()).contiguous();
     float* chunked_sum_ptr = chunked_sum.data_ptr<float>();
 
     forward_kernel<<<forwardGridDim, forwardBlockDim>>>(Q, K, V, QB_ptr, num_blocks_selected, chunked_output_ptr, chunked_sum_ptr, chunked_max_ptr, T);

@@ -8,7 +8,7 @@ from kernels import get_v1, get_v2, get_v3, get_v4, get_v5, get_v6
 os.environ["TORCH_CUDA_ARCH_LIST"] = "8.0"
 torch.manual_seed(42)
 
-implementations = [get_v6()]
+implementations = [get_v5()]
 
 T = 512
 D = 64
