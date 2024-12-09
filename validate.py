@@ -3,12 +3,12 @@ import math
 import torch
 from torch.nn import functional as F
 from torch.utils.cpp_extension import load
-from kernels import get_v3
+from kernels import get_v1, get_v2, get_v3, get_v4, get_v5, get_v6
 
 os.environ["TORCH_CUDA_ARCH_LIST"] = "8.0"
 torch.manual_seed(42)
 
-implementations = [get_v3()]
+implementations = [get_v6()]
 
 T = 512
 D = 64

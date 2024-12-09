@@ -130,21 +130,20 @@ void forward_kernel(
 
     if(tx < BLOCK_SIZE){
         for(int d = 0; d < D; d++){
-            output[(chunk_size * num_batches * T + b * T + bx * BLOCK_SIZE + tx) * D + d] = acc[d];
+            output[(chunk_index * num_batches * T + b * T + bx * BLOCK_SIZE + tx) * D + d] = acc[d];
         }
-        output_sum[chunk_size * num_batches * T + b * T + bx * BLOCK_SIZE + tx] = sum;
-        output_max[chunk_size * num_batches * T + b * T + bx * BLOCK_SIZE + tx] = max;
+        output_sum[chunk_index * num_batches * T + b * T + bx * BLOCK_SIZE + tx] = sum;
+        output_max[chunk_index * num_batches * T + b * T + bx * BLOCK_SIZE + tx] = curr_max;
     }
 }
 
-__global__ reduction_kernel(
-    float* acc,
-    float* sum,
-    float* max,
-    float* out
+__global__ void reduction_kernel(
+    float* chunked_out,
+    float* chunked_sum,
+    float* chunked_max,
+    float* out,
     int B, 
-    int T, 
-    int D
+    int T
 ) {
     int batch = blockIdx.y;
     int bx = blockIdx.x;
@@ -159,8 +158,8 @@ __global__ reduction_kernel(
     float global_max = -INFINITY;
 
     for(int i = 0; i < NUM_CHUNKS; i++){
-        local_sum[i] = sum[i * B * T + x]; // <- this is in terms of the local max
-        local_max[i] = max[i * B * T + x];
+        local_sum[i] = chunked_sum[i * B * T + x]; // <- this is in terms of the local max
+        local_max[i] = chunked_max[i * B * T + x];
         global_max = fmaxf(global_max, local_max[i]);
     }
 
@@ -171,7 +170,7 @@ __global__ reduction_kernel(
 
     for(int i = 0; i < NUM_CHUNKS; i++){
         for(int d = 0; d < D; d++){
-            acc[d] += expf(-(global_max - local_max[i])) * acc[i * B * T * D + x * D + d]; // sacle donw the values correspondifnyl 
+            acc[d] += expf(-(global_max - local_max[i])) * chunked_out[i * B * T * D + x * D + d]; // sacle donw the values correspondifnyl 
         }
     }
 
@@ -204,19 +203,19 @@ torch::Tensor forward(
     float* O = output.data_ptr<float>();
 
     auto chunked_output = torch::zeros({NUM_CHUNKS, B, T, D}, queries.options());
-    float* chunked_O = chunked_output.data_ptr<float>();
+    float* chunked_output_ptr = chunked_output.data_ptr<float>();
     
     auto chunked_max = torch::zeros({NUM_CHUNKS, B, T}, queries.options());
-    float* chunked_max = chunked_max.data_ptr<float>();
+    float* chunked_max_ptr = chunked_max.data_ptr<float>();
 
     auto chunked_sum = torch::zeros({NUM_CHUNKS, B, T}, queries.options());
-    float* chunked_sum = chunked_sum.data_ptr<float>();
+    float* chunked_sum_ptr = chunked_sum.data_ptr<float>();
 
-    forward_kernel<<<forwardGridDim, forwardBlockDim>>>(Q, K, V, QB_ptr, num_blocks_selected, chunked_O, chunked_sum, chunked_max, T);
+    forward_kernel<<<forwardGridDim, forwardBlockDim>>>(Q, K, V, QB_ptr, num_blocks_selected, chunked_output_ptr, chunked_sum_ptr, chunked_max_ptr, T);
 
     dim3 reductionGridDim((T + BLOCK_SIZE - 1) / BLOCK_SIZE, B);
     dim3 reductionBlockDim(BLOCK_SIZE);
 
-    reduction_kernel<<<reductionGridDim, reductionBlockDim>>>(chunked_O, chunked_sum, chunked_max, O, B, T, D);
+    reduction_kernel<<<reductionGridDim, reductionBlockDim>>>(chunked_output_ptr, chunked_sum_ptr, chunked_max_ptr, O, B, T);
     return output;
 }
