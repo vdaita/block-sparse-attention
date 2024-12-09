@@ -7,7 +7,7 @@ from tqdm import tqdm
 from dataclasses import dataclass
 from torch import nn
 from typing import Optional, Tuple
-from transformers.models.llama.modeling_llama import LlamaForCausalLM, LlamaConfig, LlamaRotaryEmbedding, apply_rotary_pos_emb, repeat_kv
+from transformers.models.llama.modeling_llama import LlamaForCausalLM, LlamaConfig, LlamaRotaryEmbedding, apply_rotary_pos_emb, repeat_kv, LlamaAttention
 from transformers.cache_utils import Cache
 import math
 from bsa_pooling_methods import get_top_blocks_regular, compare_divergence, pooling_methods
@@ -21,7 +21,7 @@ class Result():
     layer_index: int
 
 model_name = "meta-llama/Llama-3.2-1B"
-dataset_name = "togethercomputer/Long-Data-Collections"
+dataset_name = "abacusai/LongChat-Lines"
 block_size = 64
 
 results: List[Result] = []
@@ -98,21 +98,19 @@ def custom_forward(
 
     return attn_output, attn_weights, past_key_value
 
-LlamaForCausalLM.forward = custom_forward
+LlamaAttention.forward = custom_forward
 
 model = AutoModelForCausalLM.from_pretrained(model_name) 
 tokenizer = AutoTokenizer.from_pretrained(model_name)
-ds = load_dataset(dataset_name, split="train")
-ds = ds.filter(lambda x: len(x["text"]) > 8092)
-ds = ds.filter(lambda x: len(x["text"]) < 16384)
+tokenizer.pad_token_id = tokenizer.eos_token_id
+ds = load_dataset(dataset_name, split="950")
 ds = ds.select(list(range(8)))
 
-prompts = ds["text"]
+prompts = ds["prompt"]
 
 num_prompts = len(prompts)
-for prompt in tqdm(prompts):
-    inputs = tokenizer(prompt, return_tensors="pt", max_length=16384, padding="max_length")
-    outputs = model(**inputs)
+inputs = tokenizer(prompts, return_tensors="pt", max_length=8192, padding="max_length", truncation=True)
+outputs = model.generate(max_new_tokens=1)
     
 with open(f"bsa_results_{block_size}.json", "w+") as f:
     f.write(json.dumps([result.__dict__ for result in results], indent=2))

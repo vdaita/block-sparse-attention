@@ -2,7 +2,7 @@
 #include <torch/extension.h>
 
 #define D 64
-#define NUM_CHUNKS 4
+#define NUM_CHUNKS 2
 constexpr int BLOCK_SIZE = 16;
 
 __device__ __forceinline__ float atomicMaxFloat (float * addr, float value) {
@@ -35,10 +35,12 @@ void forward_kernel(
     __shared__ float shared_max[BLOCK_SIZE];
     __shared__ float shared_sum[BLOCK_SIZE];
 
+    // if(ty == 0){
+    for(int d = (D / NUM_CHUNKS) * ty; d < (D / NUM_CHUNKS) * (ty + 1); d++){
+        shared_acc[tx][d] = 0;
+    }
+
     if(ty == 0){
-        for(int d = 0; d < D; d++){
-            shared_acc[tx][d] = 0;
-        }
         shared_max[tx] = -INFINITY;
         shared_sum[tx] = 0;
     }
@@ -80,19 +82,21 @@ void forward_kernel(
     atomicMaxFloat(&shared_max[tx], curr_max);
     __syncthreads();
 
+
     for(int d = 0; d < D; d++){
-        atomicAdd(&shared_acc[tx][d], acc[d] * expf(curr_max - shared_max[tx]));
+        int sd = (d + ty * (D / NUM_CHUNKS)) % D;
+        atomicAdd(&shared_acc[tx][sd], acc[sd] * expf(curr_max - shared_max[tx]));
     }
-    atomicAdd(&shared_sum[tx], sum * expf(curr_max - shared_max[tx]));
+    atomicAdd(&shared_sum[tx], sum * expf(curr_max - shared_max[tx])); // how do I monkey patch everything?
 
     __syncthreads();
 
-    if(ty == 0){
-        int out_idx = (b * T + bx * BLOCK_SIZE + tx) * D;
-        for(int d = 0; d < D; d++){
-            output[out_idx + d] = shared_acc[tx][d] / shared_sum[tx];
-        }
+    // if(ty == 0){
+    int out_idx = (b * T + bx * BLOCK_SIZE + tx) * D;
+    for(int d = (ty) * (D / NUM_CHUNKS); d < D; d++){
+        output[out_idx + d] = shared_acc[tx][d] / shared_sum[tx];
     }
+    // }
 }
 
 torch::Tensor forward(

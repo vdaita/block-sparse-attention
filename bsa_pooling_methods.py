@@ -1,5 +1,5 @@
 import torch
-from torch.nn.functional import F
+import torch.nn.functional as F
 
 # Reshaped appearance: (bsz, length, num_heads, head_dim)
 def get_top_blocks_regular(query_states, key_states, block_size):

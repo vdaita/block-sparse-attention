@@ -3,110 +3,14 @@ import math
 import torch
 from torch.nn import functional as F
 from torch.utils.cpp_extension import load
+from kernels import get_v3
 
 os.environ["TORCH_CUDA_ARCH_LIST"] = "8.0"
 torch.manual_seed(42)
 
-# Load the CUDA extensions
-# block_sparse_attention_v1 = load(
-#     name="block_sparse_attention_v1",
-#     sources=[
-#         "extension/bsa_shared_memory.cu",
-#         "extension/bsa_cpp_def.cpp"
-#     ],
-#     with_cuda=True,
-#     extra_cflags=['-std=c++17'],
-#     extra_cuda_cflags=['-O2', '-std=c++17'],
-#     extra_ldflags=['-lc10', '-ltorch', '-ltorch_cuda'],
-#     build_directory="./extension/build",
-#     verbose=True,
-# )
+implementations = [get_v3()]
 
-# print("Block sparse attention v1 loaded")
-
-block_sparse_attention_v2 = load(
-    name="block_sparse_attention_v2",
-    sources=[
-        "extension/bsa_global_memory.cu",
-        "extension/bsa_cpp_def.cpp"
-    ],
-    with_cuda=True,
-    extra_cflags=['-std=c++17'],
-    extra_cuda_cflags=['-O2', '-std=c++17'],
-    extra_ldflags=['-lc10', '-ltorch', '-ltorch_cuda'],
-    build_directory="./extension/build",
-    verbose=True
-)
-print("Block sparse attention v2 loaded")
-
-# block_sparse_attention_v3 = load(
-#     name="block_sparse_attention_v3",
-#     sources=[
-#         "extension/bsa_tensor_core.cu",
-#         "extension/bsa_cpp_def.cpp"
-#     ],
-#     with_cuda=True,
-#     extra_cflags=['-std=c++17'],
-#     extra_cuda_cflags=['-O2', '-std=c++17', '-lineinfo'],
-#     extra_ldflags=['-lc10', '-ltorch', '-ltorch_cuda'],
-#     build_directory="./extension/build",
-#     verbose=True
-# )
-
-# print("Block sparse attention v3 loaded")
-
-# block_sparse_attention_v4 = load(
-#     name="block_sparse_attention_v4",
-#     sources=[
-#         "extension/bsa_transposed_mixed_memory.cu",
-#         "extension/bsa_cpp_def.cpp"
-#     ],
-#     with_cuda=True,
-#     extra_cflags=['-std=c++17'],
-#     extra_cuda_cflags=['-O2', '-std=c++17', '-lineinfo'],
-#     extra_ldflags=['-lc10', '-ltorch', '-ltorch_cuda'],
-#     build_directory="./extension/build",
-#     verbose=True
-# )
-
-# print("Block sparse attention v4 loaded")
-
-# block_sparse_attention_v5 = load(
-#     name="block_sparse_attention_v5",
-#     sources=[
-#         "extension/bsa_split_computation.cu",
-#         "extension/bsa_cpp_def.cpp"
-#     ],
-#     with_cuda=True,
-#     extra_cflags=['-std=c++17'],
-#     extra_cuda_cflags=['-O2', '-std=c++17', '-lineinfo'],
-#     extra_ldflags=['-lc10', '-ltorch', '-ltorch_cuda'],
-#     build_directory="./extension/build",
-#     verbose=True
-# )
-
-# print("Block sparse attention v5 loaded")
-
-block_sparse_attention_v6 = load(
-    name="block_sparse_attention_v6",
-    sources=[
-        "extension/bsa_split_computation.cu",
-        "extension/bsa_cpp_def.cpp"
-    ],
-    with_cuda=True,
-    extra_cflags=['-std=c++17'],
-    extra_cuda_cflags=['-O2', '-std=c++17', '-lineinfo'],
-    extra_ldflags=['-lc10', '-ltorch', '-ltorch_cuda'],
-    build_directory="./extension/build",
-    verbose=True
-)
-
-print("Block sparse attention v6 loaded")
-
-# implementations = [block_sparse_attention_v1, block_sparse_attention_v2, block_sparse_attention_v3]
-implementations = [block_sparse_attention_v2, block_sparse_attention_v6]
-
-T = 2048
+T = 512
 D = 64
 B = 8
 block_size = 16
