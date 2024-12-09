@@ -21,7 +21,7 @@ class Result():
     layer_index: int
 
 model_name = "meta-llama/Llama-3.2-1B"
-dataset_name = ""
+dataset_name = "togethercomputer/Long-Data-Collections"
 block_size = 64
 
 results: List[Result] = []
@@ -102,13 +102,10 @@ LlamaForCausalLM.forward = custom_forward
 
 model = AutoModelForCausalLM.from_pretrained(model_name) 
 tokenizer = AutoTokenizer.from_pretrained(model_name)
-ds = load_dataset(dataset_name)
+ds = load_dataset(dataset_name, split="train")
+ds = ds.select(list(range(8)))
 
-prompts = []
-for split in ds:
-    row = ds[split].select(range(0))
-    prompt = row["context"] + "\n" + row["prompt"]
-    prompts.append(prompt)
+prompts = ds["text"]
 
 num_prompts = len(prompts)
 for prompt in tqdm(prompts):
