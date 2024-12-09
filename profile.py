@@ -9,8 +9,8 @@ from kernels import get_v1, get_v2, get_v3, get_v4, get_v5
 os.environ["TORCH_CUDA_ARCH_LIST"] = "8.0"
 torch.manual_seed(42)
 
-implementations = [get_v1(), get_v2(), get_v3(), get_v4(), get_v5(), get_v6()] 
-implementation_names = ["shared memory", "global memory", "tensor core", "transposed mixed memory", "split computation", "tensor core w/ split computation"]  
+implementations = [get_v1(), get_v2(), get_v3(), get_v4(), get_v5()] 
+implementation_names = ["shared memory", "global memory", "tensor core", "transposed mixed memory", "split computation"]  
 
 T = 16384
 D = 64

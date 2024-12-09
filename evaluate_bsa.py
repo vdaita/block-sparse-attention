@@ -38,6 +38,7 @@ def custom_forward(
     position_embeddings: Optional[Tuple[torch.Tensor, torch.Tensor]] = None,  # will become mandatory in v4.46
     **kwargs,
 ) -> Tuple[torch.Tensor, Optional[torch.Tensor], Optional[Tuple[torch.Tensor]]]:
+    global results
     bsz, q_len, _ = hidden_states.size()
 
     query_states = self.q_proj(hidden_states)
@@ -100,7 +101,7 @@ def custom_forward(
 
 LlamaAttention.forward = custom_forward
 
-model = AutoModelForCausalLM.from_pretrained(model_name) 
+model = AutoModelForCausalLM.from_pretrained(model_name, attn_implementation="eager") 
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 tokenizer.pad_token_id = tokenizer.eos_token_id
 ds = load_dataset(dataset_name, split="950")
