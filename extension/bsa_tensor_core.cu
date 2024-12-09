@@ -23,7 +23,7 @@ void forward_kernel(
 
     __shared__ half shared_q[BLOCK_SIZE * 16];
     __shared__ half shared_k[BLOCK_SIZE * 16];
-    __shared__ float shared_p[BLOCK_SIZE * 16];
+    __shared__ half shared_p[BLOCK_SIZE * 16];
     __shared__ float shared_acc[16 * 16];
 
     float acc[D] = {0};
@@ -35,6 +35,7 @@ void forward_kernel(
 
     wmma::fragment<wmma::matrix_a, 16, 16, 16, half, wmma::row_major> frag_a;
     wmma::fragment<wmma::matrix_b, 16, 16, 16, half, wmma::col_major> frag_b;
+    wmma::fragment<wmma::matrix_b, 16, 16, 16, half, wmma::row_major> frag_v;
     wmma::fragment<wmma::accumulator, 16, 16, 16, float> frag_acc;
 
 
@@ -85,20 +86,37 @@ void forward_kernel(
 
         if(tx < BLOCK_SIZE) {
           for(int j = 0; j < BLOCK_SIZE; j++){
-            shared_p[tx * 16 + j] = expf(shared_acc[tx * 16 + j] - new_max);
+            float adj_attn_weight = expf(shared_acc[tx * 16 + j] - new_max);
+            shared_p[tx * 16 + j] = __float2half(adj_attn_weight);
+            sum += adj_attn_weight;
           }
         }
+        
+        wmma::load_matrix_sync(frag_a, shared_p, 16);
 
-        if(tx < BLOCK_SIZE){          
-          for(int j = 0; j < BLOCK_SIZE; j++){
-              for(int d = 0; ; d++){
-                  acc[d] += shared_p[tx * 16 + j] * V[kv_idx + j * D + d];
-              }
-              sum += shared_p[tx * 16 + j];
+        __syncthreads();
+
+        for(int d_start = 0; d_start < D; d_start += 16){
+          if(tx < BLOCK_SIZE){
+            for(int d_off = 0; d_off < 16; d_off++){
+              shared_k[tx * 16 + d_off] = __float2half(V[kv_idx + tx * D + d_start + d_off]);
+            }
           }
 
-          curr_max = new_max;
-        }
+          wmma::load_matrix_sync(frag_v, shared_k, 16);
+          wmma::fill_fragment(frag_acc, 0.0f);
+          __syncthreads();  
+          wmma::mma_sync(frag_acc, frag_a, frag_v, frag_acc);
+          wmma::store_matrix_sync(shared_acc, frag_acc, 16, wmma::mem_row_major);
+          __syncthreads();
+          if(tx < BLOCK_SIZE){
+            for(int d_off = 0; d_off < 16; d_off++){
+              acc[d_start + d_off] += shared_acc[tx * 16 + d_off];
+            }
+          }  
+        }  
+
+        curr_max = new_max;
         __syncthreads();
     }
 
