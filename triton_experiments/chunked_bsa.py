@@ -53,6 +53,13 @@ def _triton_block_sparse_attn_fwd_kernel_chunked(
     shared_m = tl.zeros([BLOCK_M], dtype=tl.float32)
     shared_l = tl.zeros([BLOCK_M], dtype=tl.float32)
 
+    off_shared_m = tl.arange(0, BLOCK_M)
+
+    # TODO: understand how pointers work in triton
+    shared_acc_ptrs = shared_acc + off_shared_m[:, None] * BLOCK_DMODEL + offs_d[None, :]
+    shared_m_ptrs = shared_m + off_shared_m[None, :]
+    shared_l_ptrs = shared_l + off_shared_m[None, :]
+
     # scale sm_scale by log_2(e) and use
     # 2^x instead of exp in the loop because CSE and LICM
     # don't work as expected with `exp` in the loop
@@ -65,7 +72,7 @@ def _triton_block_sparse_attn_fwd_kernel_chunked(
     m_mask = offs_m[:, None] < seqlen
     block_count = tl.minimum((start_m + 1) * BLOCK_M // BLOCK_N, MAX_BLOCKS_PRE_ROW)
 
-    for sparse_block_idx in range(block_count):
+    for sparse_block_idx in range((block_count // NUM_CHUNKS) * chunk_index, (block_count // NUM_CHUNKS) * (chunk_index + 1)):
         real_block_idx = tl.load(blocks_ptr + sparse_block_idx)
         start_n = real_block_idx * BLOCK_N
         cols = start_n + offs_n
@@ -92,15 +99,17 @@ def _triton_block_sparse_attn_fwd_kernel_chunked(
         l_i = l_i * alpha + tl.sum(p, 1)
         m_i = m_i_new
 
-    tl.atomic_max(shared_m, m_i)
+    tl.atomic_max(shared_m + shared_m_ptrs, m_i)
+    tl.debug_barrier()
     
     # now that we have the maximum value for everything, rescale the sum and accumulator
     shared_acc_scale = l_i * 0 + tl.math.exp2(shared_m - m_i)
     acc *= shared_acc_scale[:, None]
     l_i = l_i * shared_acc_scale
     
-    tl.atomic_add(shared_acc, acc)
-    tl.atomic_add(shared_l, l_i)
+    tl.atomic_add(shared_acc + shared_acc_ptrs, acc)
+    tl.atomic_add(shared_l + shared_l_ptrs, l_i)
+    tl.debug_barrier()
 
     # TODO: chunk the writing out instead of creating divergence
     if chunk_index == 0:
