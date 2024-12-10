@@ -1,13 +1,12 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from datasets import load_dataset
 import torch
-from time import perf_counter
 import json
 from tqdm import tqdm
 from dataclasses import dataclass
 from torch import nn
 from typing import Optional, Tuple
-from transformers.models.llama.modeling_llama import LlamaForCausalLM, LlamaConfig, LlamaRotaryEmbedding, apply_rotary_pos_emb, repeat_kv, LlamaAttention
+from transformers.models.llama.modeling_llama import apply_rotary_pos_emb, repeat_kv, LlamaAttention
 from transformers.cache_utils import Cache
 import math
 from bsa_pooling_methods import get_top_blocks_regular, compare_divergence, pooling_methods
@@ -65,6 +64,8 @@ def custom_forward(
     value_states = repeat_kv(value_states, self.num_key_value_groups)
     attn_weights = torch.matmul(query_states, key_states.transpose(2, 3)) / math.sqrt(self.head_dim)
 
+    print("Shapes: ", query_states.shape, key_states.shape, attn_weights.shape)
+
     if attention_mask is not None:  # no matter the length, we just slice it
         causal_mask = attention_mask[:, :, :, : key_states.shape[-2]]
         attn_weights = attn_weights + causal_mask
@@ -110,8 +111,8 @@ ds = ds.select(list(range(8)))
 prompts = ds["prompt"]
 
 num_prompts = len(prompts)
-inputs = tokenizer(prompts, return_tensors="pt", max_length=8192, padding="max_length", truncation=True)
-outputs = model.generate(max_new_tokens=1)
+inputs = tokenizer(prompts, return_tensors="pt", max_length=4096, padding="max_length", truncation=True)
+outputs = model(**inputs)
     
 with open(f"bsa_results_{block_size}.json", "w+") as f:
     f.write(json.dumps([result.__dict__ for result in results], indent=2))

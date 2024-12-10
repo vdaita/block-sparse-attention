@@ -140,7 +140,7 @@ torch::Tensor forward(
     int num_blocks_selected = query_blocks.size(2);
 
     dim3 gridDim((T + BLOCK_SIZE - 1) / BLOCK_SIZE, B);
-    dim3 blockDim(32);
+    dim3 blockDim(max(32, BLOCK_SIZE));
 
     auto output = torch::zeros_like(queries);
 

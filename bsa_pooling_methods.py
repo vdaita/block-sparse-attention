@@ -3,11 +3,15 @@ import torch.nn.functional as F
 
 # Reshaped appearance: (bsz, length, num_heads, head_dim)
 def get_top_blocks_regular(query_states, key_states, block_size):
+    print("Original shapes: ", query_states.shape, key_states.shape)
     B, H, L, D = query_states.shape
     query_reshaped = query_states.reshape(-1, L, D)
     key_reshaped = key_states.reshape(-1, L, D)
-    attention = torch.einsum('bld,bld->bll', query_reshaped, key_reshaped)
+    print("original shapes: ", query_states.shape, key_states.shape)
+    print("query reshaped: ", query_reshaped.shape, " key reshaped: ", key_reshaped.shape)
+    attention = torch.einsum('bnd,bmd->bnm', query_reshaped, key_reshaped)
     attention = attention.softmax(dim=-1)
+    print("Attention shape: ", attention.shape)
     attention = attention.reshape(B * H, L, L // block_size, block_size) # how much of the attention weight is in each of these blocks?
     attention = attention.sum(dim=-1)
     return attention
@@ -28,7 +32,7 @@ def avg_softmax_pooling(query_states, key_states, block_size):
     key_reshaped = key_states.reshape(B * H, L // block_size, block_size, D)
     query_reshaped = query_reshaped.mean(dim=-2)
     key_reshaped = key_reshaped.mean(dim=-2)
-    attn_weights = torch.einsum("bld,bld->bll", query_reshaped, key_reshaped)
+    attn_weights = torch.einsum("bnd,bmd->bnm", query_reshaped, key_reshaped)
     # Create and add causal mask
     mask = torch.triu(torch.ones(L // block_size, L // block_size), diagonal=1).to(attn_weights.device)
     mask = mask.unsqueeze(0).unsqueeze(0)
