@@ -14,12 +14,12 @@ torch.manual_seed(42)
 # implementation_names = ["shared memory", "global memory", "tensor core", "transposed mixed memory", "split computation with atomic operations", "coalesced memory accesses", "sdpa"]  
 
 implementations = [get_v1(), flash_attn_func]
-implementations = ["shared memory", "sdpa"]
+implementation_names = ["shared memory", "sdpa"]
 
 T = 8192
 D = 64
 B = 32
-block_size = 128
+block_size = 32
 
 num_query_blocks = (T + block_size - 1) // block_size
 num_blocks_selected = 32  # Number of blocks selected per query block

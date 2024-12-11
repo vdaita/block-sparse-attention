@@ -5,19 +5,24 @@
 #define BLOCK_WIDTH 32 // perform some type of calculation
 #define BLOCK_TOKENS 32
 
-__device__ float get_warp_max(float val) {
-    // Full mask for all 32 threads in a warp
-    unsigned int mask = 0xffffffff;
-
-    // Iteratively reduce using XOR to exchange data
+__device__ float warp_max_and_broadcast(float val) {
+    // Use warp shuffle reduction to find the maximum value
     for (int offset = 16; offset > 0; offset /= 2) {
-        val = max(val, __shfl_xor_sync(mask, val, offset));
+        val = max(val, __shfl_down_sync(0xFFFFFFFF, val, offset));
     }
-    return val;  // Maximum value within the warp
+    // Broadcast the maximum value to all threads in the warp
+    val = __shfl_sync(0xFFFFFFFF, val, 0);
+    return val;
 }
 
-__device__ warp_add_and_broadcast() {
-
+__device__ float warp_add_and_broadcast(float val) {
+    // Use warp shuffle reduction to compute the sum
+    for (int offset = 16; offset > 0; offset /= 2) {
+        val += __shfl_down_sync(0xFFFFFFFF, val, offset);
+    }
+    // Broadcast the sum value to all threads in the warp
+    val = __shfl_sync(0xFFFFFFFF, val, 0);
+    return val;
 }
 
 __global__
@@ -95,10 +100,12 @@ void shared_split_k_kernel(
 
     // adjust the sum and the values
     float local_max_qk = max_qk;
-    max_qk = get_warp_max(max_qk);
+    max_qk = warp_max_and_broadcast(max_qk);
     float alpha = expf(local_max_qk - max_qk);
     sum_qk *= alpha;
     sum_qk = warp_add_and_broadcast(value); // now, each warp has the same sum from adding up all of the sums adjusted by alpha
+
+    float tm_coalesced_out[D / BLOCK_WIDTH];
 
     // each warp handles 32 separate tokens for a given dimension
     // meaning each thread must handle the 4 dimensions
@@ -106,10 +113,15 @@ void shared_split_k_kernel(
         float value = shared_out[tx][y] * alpha;
         // add the values together
         value = warp_add_and_broadcast(value);
-        if(tx == 0){
-            coalesced_out[d] = value; // save!
+        tm_coalesced_out[(d - ty) / BLOCK_WIDTH] = value;
+    }
+
+    if(tx == 0){
+        for(int i = 0; i < D / BLOCK_WIDTH; i++){
+            coalesced_out[i * BLOCK_WIDTH + ty] = tm_coalesced_out[i];
         }
     }
+    
     __syncthreads();
 
     // write out
@@ -121,5 +133,8 @@ void shared_split_k_kernel(
 }
 
 torch::Tensor forward(){
-
+    torch::Tensor query,
+    torch::Tensor keys,
+    torch::Tensor values,
+    torch::T
 }
