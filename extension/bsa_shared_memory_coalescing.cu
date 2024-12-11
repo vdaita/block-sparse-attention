@@ -42,9 +42,13 @@ void forward_kernel(
     for(int i = 0; i < num_blocks_selected; i++){
         int block = block_indices[(b * ((T + BLOCK_SIZE - 1) / BLOCK_SIZE) + bx) * num_blocks_selected + i];
         int kv_idx = (b * T + block * BLOCK_SIZE + tx) * D;
-        for(int d = 0; d < D; d++){
-            shared_k[tx][d] = K[kv_idx + d];
-            shared_v[tx][d] = V[kv_idx + d];
+        // for(int d = 0; d < D; d++){
+        //     shared_k[tx][d] = K[kv_idx + d];
+        //     shared_v[tx][d] = V[kv_idx + d];
+        // }
+        for(int j = 0; j < BLOCK_SIZE; j++){
+            shared_k[j][tx] = K[(b * T + block * BLOCK_SIZE + j) * D + tx];
+            shared_v[j][tx] = V[(b * T + block * BLOCK_SIZE + j) * D + tx];
         }
         __syncthreads();
 
