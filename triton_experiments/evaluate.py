@@ -62,7 +62,7 @@ def benchmark(N, implementation):
             )
     else:
         num_chunks = int(implementation.split("_")[0])
-        ms, min_ms, max_ms = triton.testin.do_bench(
+        ms, min_ms, max_ms = triton.testing.do_bench(
             triton_block_sparse_attention_chunked(q, k, v, seqlens, block_indices, sm_scale, num_chunks=num_chunks)
         )
     

@@ -3,17 +3,17 @@ import math
 import torch
 from torch.nn import functional as F
 from torch.utils.cpp_extension import load
-from kernels import get_file_with_settings
+from kernels import get_v1, get_v2, get_v3, get_v4, get_v5, get_v6
 
 os.environ["TORCH_CUDA_ARCH_LIST"] = "8.0"
 torch.manual_seed(42)
 
-implementations = [get_file_with_settings("bsa_shared_memory_coalescing", "extension/bsa_shared_memory_coalescing.cu")]
+implementations = [get_v5()]
 
-T = 1024
+T = 512
 D = 64
 B = 8
-block_size = 64
+block_size = 16
 
 num_query_blocks = (T + block_size - 1) // block_size
 num_blocks_selected = 4  # Number of blocks selected per query block

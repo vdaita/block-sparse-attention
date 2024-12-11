@@ -2,7 +2,7 @@
 #include <torch/extension.h>
 
 #define D 64
-constexpr int BLOCK_SIZE = 64;
+constexpr int BLOCK_SIZE = 128;
 
 __global__
 void forward_kernel(

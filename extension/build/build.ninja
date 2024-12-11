@@ -2,12 +2,12 @@ ninja_required_version = 1.3
 cxx = c++
 nvcc = /usr/local/cuda/bin/nvcc
 
-cflags = -DTORCH_EXTENSION_NAME=block_sparse_attention_v5 -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -isystem /usr/local/lib/python3.10/dist-packages/torch/include -isystem /usr/local/lib/python3.10/dist-packages/torch/include/torch/csrc/api/include -isystem /usr/local/lib/python3.10/dist-packages/torch/include/TH -isystem /usr/local/lib/python3.10/dist-packages/torch/include/THC -isystem /usr/local/cuda/include -isystem /usr/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=1 -fPIC -std=c++17 -std=c++17
+cflags = -DTORCH_EXTENSION_NAME=block_sparse_attention_v1 -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -isystem /opt/conda/lib/python3.11/site-packages/torch/include -isystem /opt/conda/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /opt/conda/lib/python3.11/site-packages/torch/include/TH -isystem /opt/conda/lib/python3.11/site-packages/torch/include/THC -isystem /usr/local/cuda/include -isystem /opt/conda/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=0 -fPIC -std=c++17 -std=c++17
 post_cflags = 
-cuda_cflags = -DTORCH_EXTENSION_NAME=block_sparse_attention_v5 -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -isystem /usr/local/lib/python3.10/dist-packages/torch/include -isystem /usr/local/lib/python3.10/dist-packages/torch/include/torch/csrc/api/include -isystem /usr/local/lib/python3.10/dist-packages/torch/include/TH -isystem /usr/local/lib/python3.10/dist-packages/torch/include/THC -isystem /usr/local/cuda/include -isystem /usr/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_80,code=sm_80 --compiler-options '-fPIC' -O2 -std=c++17
+cuda_cflags = -DTORCH_EXTENSION_NAME=block_sparse_attention_v1 -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -isystem /opt/conda/lib/python3.11/site-packages/torch/include -isystem /opt/conda/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /opt/conda/lib/python3.11/site-packages/torch/include/TH -isystem /opt/conda/lib/python3.11/site-packages/torch/include/THC -isystem /usr/local/cuda/include -isystem /opt/conda/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_80,code=sm_80 --compiler-options '-fPIC' -O2 -std=c++17
 cuda_post_cflags = 
 cuda_dlink_post_cflags = 
-ldflags = -shared -lc10 -ltorch -ltorch_cuda -L/usr/local/lib/python3.10/dist-packages/torch/lib -lc10 -lc10_cuda -ltorch_cpu -ltorch_cuda -ltorch -ltorch_python -L/usr/local/cuda/lib64 -lcudart
+ldflags = -shared -lc10 -ltorch -ltorch_cuda -L/opt/conda/lib/python3.11/site-packages/torch/lib -lc10 -lc10_cuda -ltorch_cpu -ltorch_cuda -ltorch -ltorch_python -L/usr/local/cuda/lib64 -lcudart
 
 rule compile
   command = $cxx -MMD -MF $out.d $cflags -c $in -o $out $post_cflags
@@ -24,11 +24,11 @@ rule cuda_compile
 rule link
   command = $cxx $in $ldflags -o $out
 
-build bsa_split_computation_atomic.cuda.o: cuda_compile /root/project/block-sparse-attention/extension/bsa_split_computation_atomic.cu
-build bsa_cpp_def.o: compile /root/project/block-sparse-attention/extension/bsa_cpp_def.cpp
+build bsa_shared_memory.cuda.o: cuda_compile /root/block-sparse-attention/extension/bsa_shared_memory.cu
+build bsa_cpp_def.o: compile /root/block-sparse-attention/extension/bsa_cpp_def.cpp
 
 
 
-build block_sparse_attention_v5.so: link bsa_split_computation_atomic.cuda.o bsa_cpp_def.o
+build block_sparse_attention_v1.so: link bsa_shared_memory.cuda.o bsa_cpp_def.o
 
-default block_sparse_attention_v5.so
+default block_sparse_attention_v1.so

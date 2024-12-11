@@ -37,6 +37,3 @@ def get_v5():
 
 def get_v6():
     return get_file_with_settings("block_sparse_attention_v6", "extension/bsa_split_computation_tensor_core.cu")
-
-def get_v7():
-    return get_file_with_settings("block_sparse_attention_v7", "extension/bsa_shared_memory_coalescing.cu")
