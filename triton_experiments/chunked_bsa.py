@@ -15,7 +15,8 @@ def _triton_block_sparse_attn_fwd_kernel_chunked(
     stride_vz, stride_vh, stride_vn, stride_vk,
     stride_oz, stride_oh, stride_om, stride_ok,
     Z, H, N_CTX,
-    NUM_ROWS, MAX_BLOCKS_PRE_ROW, NUM_CHUNKS,
+    NUM_ROWS, MAX_BLOCKS_PRE_ROW, 
+    NUM_CHUNKS: tl.constexpr,
     BLOCK_M: tl.constexpr,
     BLOCK_N: tl.constexpr,
     BLOCK_DMODEL: tl.constexpr,
@@ -45,9 +46,9 @@ def _triton_block_sparse_attn_fwd_kernel_chunked(
     blocks_ptr = block_index + (off_hz * NUM_ROWS + start_m) * MAX_BLOCKS_PRE_ROW
 
     # initialize pointer to m and l
-    m_i = tl.zeros([BLOCK_M], dtype=tl.float32) - float("inf")
-    l_i = tl.zeros([BLOCK_M], dtype=tl.float32)
-    acc = tl.zeros([BLOCK_M, BLOCK_DMODEL], dtype=tl.float32)
+    chunks_m_i = tl.zeros([NUM_CHUNKS, BLOCK_M], dtype=tl.float32) - float("inf")
+    chunks_l_i = tl.zeros([NUM_CHUNKS, BLOCK_M], dtype=tl.float32)
+    chunks_acc = tl.zeros([NUM_CHUNKS, BLOCK_M, BLOCK_DMODEL], dtype=tl.float32)
 
     shared_acc = tl.zeros([BLOCK_M, BLOCK_DMODEL], dtype=tl.float32)
     shared_m = tl.zeros([BLOCK_M], dtype=tl.float32)
@@ -71,6 +72,10 @@ def _triton_block_sparse_attn_fwd_kernel_chunked(
     # loop over k, v and update accumulator
     m_mask = offs_m[:, None] < seqlen
     block_count = tl.minimum((start_m + 1) * BLOCK_M // BLOCK_N, MAX_BLOCKS_PRE_ROW)
+
+    acc = chunks_acc[chunk_index, :, :] 
+    l_i = chunks_l_i[chunk_index, :]
+    m_i = chunks_m_i[chunk_index, :]
 
     for sparse_block_idx in range((block_count // NUM_CHUNKS) * chunk_index, (block_count // NUM_CHUNKS) * (chunk_index + 1)):
         real_block_idx = tl.load(blocks_ptr + sparse_block_idx)
