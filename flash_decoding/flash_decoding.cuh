@@ -2,10 +2,10 @@
 // #include <torch/extension.h>
 #include <stdio.h>
 
-#define D 64
+#define D 128
 #define BLOCK_WIDTH 32 // perform some type of calculation
 #define BLOCK_TOKENS 32
-#define MAX_NUM_BLOCKS 2
+#define MAX_NUM_BLOCKS 8
 
 __device__ float warp_max_and_broadcast(float val) {
     // Use warp shuffle reduction to find the maximum value
@@ -91,6 +91,8 @@ void shared_split_k_kernel(
             // printf("%d %d %d adding value to dim: %d %f with alpha %f and nw %f\n", by, tx, ty, d, values[di], alpha, normalized_weight);
         }
     }
+
+    #pragma unroll
     for(int i = 0; i < D / BLOCK_WIDTH; i++){
         shared_out[ty][tx + i * BLOCK_WIDTH] = values[i];
     }
@@ -138,6 +140,7 @@ void shared_split_k_kernel(
     }
 
     if(tx == 0){
+        #pragma unroll
         for(int i = 0; i < D / BLOCK_WIDTH; i++){
             coalesced_out[i * BLOCK_WIDTH + ty] = tm_coalesced_out[i];
         }
@@ -148,11 +151,11 @@ void shared_split_k_kernel(
     // write out
     if(ty == 0){
         for(int d = tx; d < D; d += BLOCK_WIDTH) {
-            printf("batch=%d, nbph=%d, by=%d, d=%d, val=%f\n", batch, num_blocks_per_head, by, d, coalesced_out[d]);
+            // printf("batch=%d, nbph=%d, by=%d, d=%d, val=%f\n", batch, num_blocks_per_head, by, d, coalesced_out[d]);
             output[batch * num_blocks_per_head * D + by * D + d] = coalesced_out[d];
         }
         if(tx == 0){
-            printf("batch=%d, by=%d, sum_qk=%f, max_qk=%f\n", batch, by, sum_qk, max_qk);
+            // printf("batch=%d, by=%d, sum_qk=%f, max_qk=%f\n", batch, by, sum_qk, max_qk);
             output_sum[batch * num_blocks_per_head + by] = sum_qk;
             output_max[batch * num_blocks_per_head + by] = max_qk;
         }
@@ -176,7 +179,7 @@ void reduction_kernel (
     __shared__ float shared_max[MAX_NUM_BLOCKS];
 
     if(ty < num_blocks_per_head){
-        printf("Loading value into shared mem: ty=%d tx=%d %f\n", ty, tx, output[batch * num_blocks_per_head * D + ty * D + tx]);
+        // printf("Loading value into shared mem: ty=%d tx=%d %f\n", ty, tx, output[batch * num_blocks_per_head * D + ty * D + tx]);
         shared_acc[ty][tx] = output[batch * num_blocks_per_head * D + ty * D + tx];
         if(tx == 0){
             shared_sum[ty] = output_sum[batch * num_blocks_per_head + ty];
@@ -191,7 +194,7 @@ void reduction_kernel (
     }
 
     for(int stride = (num_blocks_per_head + 1) / 2; stride > 0; stride /= 2){
-        printf("Stride: %d\n", stride);
+        // printf("Stride: %d\n", stride);
         __syncthreads();
         float new_max = -INFINITY;
         float alpha = 0;
@@ -202,18 +205,18 @@ void reduction_kernel (
         // if(ty + stride < MAX_NUM_BLOCKS){
         if(ty < stride){
             // look at ty, ty + stride
-            printf("Adding %d and %d together at x dimension value %d\n", ty, ty + stride, tx);
+            // printf("Adding %d and %d together at x dimension value %d\n", ty, ty + stride, tx);
             new_max = fmaxf(shared_max[ty], shared_max[ty + stride]);
             alpha = expf(shared_max[ty] - new_max);
             beta = expf(shared_max[ty + stride] - new_max);
             right_acc = shared_acc[ty + stride][tx];
-            printf("Shared mem value of %d+%d=%d at dim %d, value %f\n", ty, stride, ty + stride, tx, shared_acc[ty + stride][tx]);
+            // printf("Shared mem value of %d+%d=%d at dim %d, value %f\n", ty, stride, ty + stride, tx, shared_acc[ty + stride][tx]);
             right_sum = shared_sum[ty + stride];
         }
         __syncthreads();
         // if(ty + stride < MAX_NUM_BLOCKS){
         if(ty < stride){
-            printf("Reducing with shared max %f, shift shared max %f, new max %f, alpha %f, beta %f, right_acc %f, right_sum %f, curr_acc %f, curr_sum %f\n", shared_max[ty], shared_max[ty + stride], new_max, alpha, beta, right_acc, right_sum, shared_acc[ty][tx], shared_sum[ty]);
+            // printf("Reducing with shared max %f, shift shared max %f, new max %f, alpha %f, beta %f, right_acc %f, right_sum %f, curr_acc %f, curr_sum %f\n", shared_max[ty], shared_max[ty + stride], new_max, alpha, beta, right_acc, right_sum, shared_acc[ty][tx], shared_sum[ty]);
             shared_sum[ty] = alpha * shared_sum[ty] + beta * right_sum;
             shared_acc[ty][tx] = alpha * shared_acc[ty][tx] + beta * right_acc;
             shared_max[ty] = new_max;

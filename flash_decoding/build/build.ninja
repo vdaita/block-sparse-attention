@@ -2,9 +2,9 @@ ninja_required_version = 1.3
 cxx = c++
 nvcc = /usr/local/cuda/bin/nvcc
 
-cflags = -DTORCH_EXTENSION_NAME=flash_decoding_stage_1 -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -isystem /opt/conda/lib/python3.11/site-packages/torch/include -isystem /opt/conda/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /opt/conda/lib/python3.11/site-packages/torch/include/TH -isystem /opt/conda/lib/python3.11/site-packages/torch/include/THC -isystem /usr/local/cuda/include -isystem /opt/conda/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=0 -fPIC -std=c++17 -std=c++17
+cflags = -DTORCH_EXTENSION_NAME=custom_flash_decoding -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -isystem /opt/conda/lib/python3.11/site-packages/torch/include -isystem /opt/conda/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /opt/conda/lib/python3.11/site-packages/torch/include/TH -isystem /opt/conda/lib/python3.11/site-packages/torch/include/THC -isystem /usr/local/cuda/include -isystem /opt/conda/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=0 -fPIC -std=c++17 -std=c++17
 post_cflags = 
-cuda_cflags = -DTORCH_EXTENSION_NAME=flash_decoding_stage_1 -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -isystem /opt/conda/lib/python3.11/site-packages/torch/include -isystem /opt/conda/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /opt/conda/lib/python3.11/site-packages/torch/include/TH -isystem /opt/conda/lib/python3.11/site-packages/torch/include/THC -isystem /usr/local/cuda/include -isystem /opt/conda/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_80,code=sm_80 --compiler-options '-fPIC' -O2 -std=c++17
+cuda_cflags = -DTORCH_EXTENSION_NAME=custom_flash_decoding -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -isystem /opt/conda/lib/python3.11/site-packages/torch/include -isystem /opt/conda/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /opt/conda/lib/python3.11/site-packages/torch/include/TH -isystem /opt/conda/lib/python3.11/site-packages/torch/include/THC -isystem /usr/local/cuda/include -isystem /opt/conda/include/python3.11 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_80,code=sm_80 --compiler-options '-fPIC' -O2 -std=c++17 -Xptxas=-maxrregcount=32
 cuda_post_cflags = 
 cuda_dlink_post_cflags = 
 ldflags = -shared -lc10 -ltorch -ltorch_cuda -L/opt/conda/lib/python3.11/site-packages/torch/lib -lc10 -lc10_cuda -ltorch_cpu -ltorch_cuda -ltorch -ltorch_python -L/usr/local/cuda/lib64 -lcudart
@@ -24,11 +24,11 @@ rule cuda_compile
 rule link
   command = $cxx $in $ldflags -o $out
 
-build flash_decoding.cuda.o: cuda_compile /root/block-sparse-attention/flash_decoding/flash_decoding.cu
 build flash_decoding_def.o: compile /root/block-sparse-attention/flash_decoding/flash_decoding_def.cpp
+build flash_decoding_torch.cuda.o: cuda_compile /root/block-sparse-attention/flash_decoding/flash_decoding_torch.cu
 
 
 
-build flash_decoding_stage_1.so: link flash_decoding.cuda.o flash_decoding_def.o
+build custom_flash_decoding.so: link flash_decoding_def.o flash_decoding_torch.cuda.o
 
-default flash_decoding_stage_1.so
+default custom_flash_decoding.so
