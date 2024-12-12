@@ -29,8 +29,8 @@ float getNextFloat() {
 }
 
 int main(int argc, char** argv){
-    int B = 2;
-    int T = 512;
+    int B = 1;
+    int T = 128;
 
     float* q = (float*) malloc(B * D * sizeof(float));
     float* k = (float*) malloc(B * T * D * sizeof(float));
@@ -76,7 +76,7 @@ int main(int argc, char** argv){
     cudaMemcpy(device_k, k, B * T * D * sizeof(float), cudaMemcpyHostToDevice);
     cudaMemcpy(device_v, v, B * T * D * sizeof(float), cudaMemcpyHostToDevice);
 
-    int num_blocks_per_head = min((T + BLOCK_TOKENS - 1) / BLOCK_TOKENS, 1); // at most 2 blocks per for some reason (and then reduce later)
+    int num_blocks_per_head = min((T + BLOCK_TOKENS - 1) / BLOCK_TOKENS, MAX_NUM_BLOCKS); // at most 2 blocks per for some reason (and then reduce later)
     dim3 gridDim(1, num_blocks_per_head, B);
     dim3 blockDim(BLOCK_WIDTH, BLOCK_TOKENS, 1);
 
@@ -119,6 +119,39 @@ int main(int argc, char** argv){
     }
     printf("\n");
 
+    printf("Working on reduction kernel...\n");
+
+    float* device_reduced_o;
+    cudaMalloc((void**) &device_reduced_o, B * D * sizeof(float));
+
+    dim3 gridDimReduction(1, 1, B);
+    dim3 blockDimReduction(D, num_blocks_per_head, 1);
+    reduction_kernel<<<gridDimReduction, blockDimReduction>>>(
+        device_o,
+        device_o_sum,
+        device_o_max,
+        device_reduced_o,
+        num_blocks_per_head
+    );
+
+    float* reduced_o = (float*) malloc(B * D * sizeof(float));
+    cudaMemcpy(reduced_o, device_reduced_o, B * D * sizeof(float), cudaMemcpyDeviceToHost);
+
+    for(int b = 0; b < B; b++){
+        for(int d = 0; d < D; d++){
+            printf("%f ", reduced_o[d]);
+        }
+        printf("\n");
+    }
+
+    bool works = true;
+    for(int i = 0; i < B * D; i++){
+        if(abs(reduced_o[i] - target_output[i]) > 0.02){
+            works = false;
+            break;
+        }
+    }
+
     // for(int b = 0; b < B; b++){
     //     for(int n = 0; n < num_blocks_per_head; n++){
     //         for(int i = 0; i < D; i++){
@@ -129,13 +162,13 @@ int main(int argc, char** argv){
     //     }
     // }
 
-    bool works = true;
-    for(int i = 0; i < B * D * num_blocks_per_head; i++){
-        if(abs((o[i] / o_sum[i / D]) - target_output[i]) > 0.02){
-            works = false;
-            break;
-        }
-    }
+    // bool works = true;
+    // for(int i = 0; i < B * D; i++){
+    //     if(abs((o[i] / o_sum[i / D]) - target_output[i]) > 0.02){
+    //         works = false;
+    //         break;
+    //     }
+    // }
     // for(int b = 0; b < B; b++){
     //     for(int n = 0; n < num_blocks_per_head; n++){
     //         for(int i = 0; i < D; i++){

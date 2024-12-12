@@ -5,6 +5,7 @@
 #define D 64
 #define BLOCK_WIDTH 32 // perform some type of calculation
 #define BLOCK_TOKENS 32
+#define MAX_NUM_BLOCKS 2
 
 __device__ float warp_max_and_broadcast(float val) {
     // Use warp shuffle reduction to find the maximum value
@@ -67,15 +68,15 @@ void shared_split_k_kernel(
 
     for(int i = start_token_kv; i < T; i += BLOCK_TOKENS * num_blocks_per_head){ // this means that T must be padded to the nearest multiple of 32
         // load the right token for this dimension
-        printf("%d %d %d processing idx: %d\n", by, tx, ty, i);
+        // printf("%d %d %d processing idx: %d\n", by, tx, ty, i);
         acc = 0.0f;
         for(int d = tx; d < D; d += BLOCK_WIDTH){
-            printf("%d %d %d processing dimension: %d\n", by, tx, ty, d);
+            // printf("%d %d %d processing dimension: %d\n", by, tx, ty, d);
             acc += shared_q[d] * K[batch * T * D + i * D + d]; // d is related to tx, so memory accesses should be coalesced
         }
         __syncwarp();
         acc = warp_add_and_broadcast(acc);
-        printf("%d %d %d acc: %f\n", by, tx, ty, acc);
+        // printf("%d %d %d acc: %f\n", by, tx, ty, acc);
 
         float prev_max_qk = max_qk;
         max_qk = fmaxf(acc, max_qk);
@@ -94,8 +95,8 @@ void shared_split_k_kernel(
         shared_out[ty][tx + i * BLOCK_WIDTH] = values[i];
     }
 
-    printf("%d %d %d max: %f\n", by, tx, ty, max_qk);
-    printf("%d %d %d sum: %f\n", by, tx, ty, sum_qk);
+    // printf("%d %d %d max: %f\n", by, tx, ty, max_qk);
+    // printf("%d %d %d sum: %f\n", by, tx, ty, sum_qk);
 
     if(tx == 0){
         shared_max[ty] = max_qk;
@@ -122,7 +123,7 @@ void shared_split_k_kernel(
 
     sum_qk = warp_add_and_broadcast(sum_qk); // now, each warp has the same sum from adding up all of the sums adjusted by alpha
 
-    printf("Global values: tx %d ty %d local_max %f global_max %f alpha %f sum %f\n", tx, ty, local_max_qk, max_qk, alpha, sum_qk);
+    // printf("Global values: tx %d ty %d local_max %f global_max %f alpha %f sum %f\n", tx, ty, local_max_qk, max_qk, alpha, sum_qk);
 
     float tm_coalesced_out[D / BLOCK_WIDTH];
 
@@ -147,9 +148,11 @@ void shared_split_k_kernel(
     // write out
     if(ty == 0){
         for(int d = tx; d < D; d += BLOCK_WIDTH) {
+            printf("batch=%d, nbph=%d, by=%d, d=%d, val=%f\n", batch, num_blocks_per_head, by, d, coalesced_out[d]);
             output[batch * num_blocks_per_head * D + by * D + d] = coalesced_out[d];
         }
         if(tx == 0){
+            printf("batch=%d, by=%d, sum_qk=%f, max_qk=%f\n", batch, by, sum_qk, max_qk);
             output_sum[batch * num_blocks_per_head + by] = sum_qk;
             output_max[batch * num_blocks_per_head + by] = max_qk;
         }
@@ -157,10 +160,70 @@ void shared_split_k_kernel(
 }
 
 __global__
-void reduce(
-
+void reduction_kernel (
+    __const__ float* output,
+    __const__ float* output_sum,
+    __const__ float* output_max,
+    float* result,
+    int num_blocks_per_head
 ) {
+    int tx = threadIdx.x; // D
+    int ty = threadIdx.y; // at most 8
+    int batch = blockIdx.z;
 
+    __shared__ float shared_acc[MAX_NUM_BLOCKS][D];
+    __shared__ float shared_sum[MAX_NUM_BLOCKS];
+    __shared__ float shared_max[MAX_NUM_BLOCKS];
+
+    if(ty < num_blocks_per_head){
+        printf("Loading value into shared mem: ty=%d tx=%d %f\n", ty, tx, output[batch * num_blocks_per_head * D + ty * D + tx]);
+        shared_acc[ty][tx] = output[batch * num_blocks_per_head * D + ty * D + tx];
+        if(tx == 0){
+            shared_sum[ty] = output_sum[batch * num_blocks_per_head + ty];
+            shared_max[ty] = output_max[batch * num_blocks_per_head + ty];
+        }
+    } else {
+        shared_acc[ty][tx] = 0;
+        if(tx == 0){
+            shared_sum[ty] = 0;
+            shared_max[ty] = -INFINITY;
+        }
+    }
+
+    for(int stride = (num_blocks_per_head + 1) / 2; stride > 0; stride /= 2){
+        printf("Stride: %d\n", stride);
+        __syncthreads();
+        float new_max = -INFINITY;
+        float alpha = 0;
+        float beta = 0;
+        float right_acc = 0;
+        float right_sum = 0;
+
+        // if(ty + stride < MAX_NUM_BLOCKS){
+        if(ty < stride){
+            // look at ty, ty + stride
+            printf("Adding %d and %d together at x dimension value %d\n", ty, ty + stride, tx);
+            new_max = fmaxf(shared_max[ty], shared_max[ty + stride]);
+            alpha = expf(shared_max[ty] - new_max);
+            beta = expf(shared_max[ty + stride] - new_max);
+            right_acc = shared_acc[ty + stride][tx];
+            printf("Shared mem value of %d+%d=%d at dim %d, value %f\n", ty, stride, ty + stride, tx, shared_acc[ty + stride][tx]);
+            right_sum = shared_sum[ty + stride];
+        }
+        __syncthreads();
+        // if(ty + stride < MAX_NUM_BLOCKS){
+        if(ty < stride){
+            printf("Reducing with shared max %f, shift shared max %f, new max %f, alpha %f, beta %f, right_acc %f, right_sum %f, curr_acc %f, curr_sum %f\n", shared_max[ty], shared_max[ty + stride], new_max, alpha, beta, right_acc, right_sum, shared_acc[ty][tx], shared_sum[ty]);
+            shared_sum[ty] = alpha * shared_sum[ty] + beta * right_sum;
+            shared_acc[ty][tx] = alpha * shared_acc[ty][tx] + beta * right_acc;
+            shared_max[ty] = new_max;
+        }
+    }
+
+    __syncthreads(); //MAYBE: threads do not need to be synced up because everything we care about is with ty = 0, tx = tx which we just set
+    if(ty == 0){
+        result[batch * D + tx] = shared_acc[ty][tx] / shared_sum[ty];
+    }
 }
 
 // torch::Tensor forward(
