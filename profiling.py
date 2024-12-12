@@ -10,24 +10,26 @@ from flash_attn import flash_attn_func
 os.environ["TORCH_CUDA_ARCH_LIST"] = "8.0"
 torch.manual_seed(42)
 
-# implementations = [get_v1(), get_v2(), get_v3(), get_v4(), get_v5(), get_v7(), flash_attn_func] 
-# implementation_names = ["shared memory", "global memory", "tensor core", "transposed mixed memory", "split computation with atomic operations", "coalesced memory accesses", "sdpa"]  
+implementations = [get_v1(), get_v2(), get_v3(), get_v4(), get_v5(), get_v7(), flash_attn_func] 
+implementation_names = ["shared memory", "global memory", "tensor core", "transposed mixed memory", "split computation with atomic operations", "coalesced memory accesses", "sdpa"]  
 
-implementations = [get_v1(), flash_attn_func]
-implementation_names = ["shared memory", "sdpa"]
+# implementations = [get_v1(), flash_attn_func]
+# implementation_names = ["shared memory", "sdpa"]
 
-T = 8192
+T = 16384
 D = 64
 B = 32
 block_size = 32
 
 num_query_blocks = (T + block_size - 1) // block_size
-num_blocks_selected = 32  # Number of blocks selected per query block
+num_blocks_selected = 128  # Number of blocks selected per query block
 
 q = torch.randn(B, T, D).cuda()
 k = torch.randn(B, T, D).cuda()
 v = torch.randn(B, T, D).cuda()
 block_indices = torch.randint(0, num_query_blocks, (B, num_query_blocks, num_blocks_selected)).cuda().int()
+block_indices_double = torch.randint(0, num_query_blocks, (B, num_query_blocks, num_blocks_selected * 2)).cuda().int()
+
 
 q_fa = q.unsqueeze(0).to(torch.float16)
 k_fa = k.unsqueeze(0).to(torch.float16)
@@ -43,6 +45,9 @@ for implementation_name, implementation_idx, implementation in zip(implementatio
     # Warmup
     for _ in range(10):  # Perform several warmup iterations
         if implementation_name != "sdpa":
+            # if implementation_name == "tensor core":
+            #     _ = implementation.forward(q, k, v, block_indices_double)
+            # else:
             _ = implementation.forward(q, k, v, block_indices)
         else:
             _ = implementation(q_fa, k_fa, v_fa)
@@ -58,6 +63,9 @@ for implementation_name, implementation_idx, implementation in zip(implementatio
         
         start_event.record()  # Start timing
         if implementation_name != "sdpa":
+            # if implementation_name == "tensor core":
+            #     _ = implementation.forward(q, k, v, block_indices_double)
+            # else:
             _ = implementation.forward(q, k, v, block_indices)
         else:
             _ = implementation(q_fa, k_fa, v_fa)

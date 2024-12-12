@@ -13,10 +13,12 @@ implementations = [get_file_with_settings("bsa_shared_memory_coalescing", "exten
 T = 1024
 D = 64
 B = 8
-block_size = 64
+block_size = 32
+
+# NOTE: need to make sure that configuration settings line up
 
 num_query_blocks = (T + block_size - 1) // block_size
-num_blocks_selected = 4  # Number of blocks selected per query block
+num_blocks_selected = 2  # Number of blocks selected per query block
 
 q = torch.randn(B, T, D).cuda()
 k = torch.randn(B, T, D).cuda()

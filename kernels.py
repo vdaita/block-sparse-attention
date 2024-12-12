@@ -5,12 +5,12 @@ from torch.utils.cpp_extension import load
 
 os.environ["TORCH_CUDA_ARCH_LIST"] = "8.0"
 
-def get_file_with_settings(name, source_file):
+def get_file_with_settings(name, source_file, cpp_file="extension/bsa_cpp_def.cpp"):
     return load(
         name=name,
         sources=[
             source_file,
-            "extension/bsa_cpp_def.cpp"
+            cpp_file
         ],
         with_cuda=True,
         extra_cflags=['-std=c++17'],

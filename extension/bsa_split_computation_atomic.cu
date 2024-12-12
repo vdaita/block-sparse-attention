@@ -3,7 +3,7 @@
 
 #define D 64
 #define NUM_CHUNKS 4
-constexpr int BLOCK_SIZE = 16;
+constexpr int BLOCK_SIZE = 32;
 
 __device__ __forceinline__ float atomicMaxFloat (float * addr, float value) {
     float old;
