@@ -4,7 +4,7 @@
 
 #define D 32
 #define BLOCK_WIDTH 32 // perform some type of calculation
-#define BLOCK_TOKENS 1
+#define BLOCK_TOKENS 32
 
 __device__ float warp_max_and_broadcast(float val) {
     // Use warp shuffle reduction to find the maximum value
@@ -26,29 +26,29 @@ __device__ float warp_add_and_broadcast(float val) {
     return val;
 }
 
-
 __global__
 void shared_split_k_kernel(
     const float* Q,
     const float* K,
     const float* V,
     float* output,
+    float* output_sum,
+    float* output_max,
     const int B,
     const int T
 ) {
     int tx = threadIdx.x; // represents the hidden dim dimension
     int ty = threadIdx.y; // represents the key index dimension
     int by = blockIdx.y; // represents the key index dimension, but which current block
-    int bx = blockIdx.x;
-    int num_blocks_for_head = gridDim.y;
+    int num_blocks_per_head = gridDim.y;
 
     int batch = blockIdx.z;
 
-    int start_token_kv = by * BLOCK_TOKENS + tx;
+    int start_token_kv = by * BLOCK_TOKENS + ty;
 
     // load data into shared memory
     __shared__ float shared_q[D];
-    for(int i = 0; i < D; i++){
+    for(int i = ty * BLOCK_WIDTH + tx; i < D; i += BLOCK_WIDTH * BLOCK_TOKENS){
         shared_q[i] = Q[batch * D + i];
     }
 
@@ -57,42 +57,100 @@ void shared_split_k_kernel(
     __shared__ float shared_out[BLOCK_TOKENS][D];
     __shared__ float shared_max[BLOCK_TOKENS];
     __shared__ float shared_sum[BLOCK_TOKENS];
+    __shared__ float coalesced_out[D];
 
-    float max_acc = -INFINITY;
-    float sum_acc = 0;
-
-    for(int i = start_token_kv; i < T; i += BLOCK_TOKENS * num_blocks_for_head){
+    // iterate through a given number of tokens
+    float sum_qk = 0.0f;
+    float max_qk = -INFINITY;
+    float values[D / BLOCK_WIDTH] = {0};
+    for(int i = start_token_kv; i < T; i += BLOCK_TOKENS * num_blocks_per_head){ // this means that T must be padded to the nearest multiple of 32
+        // load the right token for this dimension
+        printf("%d %d %d processing idx: %d\n", by, tx, ty, i);
         float acc = 0.0f;
-        for(int d = 0; d < D; d++){
-            acc += shared_q[d] * K[batch * D * T + i * D + d];
+        for(int d = tx; d < D; d += BLOCK_WIDTH){
+            printf("%d %d %d processing dimension: %d\n", by, tx, ty, d);
+            acc += shared_q[d] * K[batch * T * D + i * D + d]; // d is related to tx, so memory accesses should be coalesced
         }
+        __syncwarp();
+        acc = warp_add_and_broadcast(acc);
+        printf("%d %d %d acc: %f\n", by, tx, ty, acc);
 
-        float old_max_acc = max_acc;
-        max_acc = fmaxf(max_acc, acc);
-        float alpha = expf(old_max_acc - max_acc);
-        float norm_weight = expf(acc - max_acc);
+        float prev_max_qk = max_qk;
+        max_qk = fmaxf(acc, max_qk);
+        float alpha = expf(prev_max_qk - max_qk);
+        float normalized_weight = expf(acc - max_qk);
+        sum_qk = sum_qk * alpha + normalized_weight;
 
-        for(int d = 0; d < D; d++){
-            shared_out[tx][d] = shared_out[tx][d] * alpha + norm_weight * V[batch * D * T + i * D + d];
+        // now that the accumulator has the weight for the entire thing
+        for(int di = 0; di < D / BLOCK_WIDTH; di++){
+            int d = tx + di * BLOCK_WIDTH;
+            float c_v = V[batch * T * D + i * D + d];
+            values[di] = values[di] * alpha + normalized_weight * c_v;
+            printf("%d %d %d adding value to dim: %d %f with alpha %f and nw %f\n", by, tx, ty, d, values[di], alpha, normalized_weight);
         }
-        shared_max[tx] = max_acc;
-        shared_sum[tx] = shared_sum[tx] * alpha + norm_weight;
+    }
+    for(int i = 0; i < D / BLOCK_WIDTH; i++){
+        shared_out[ty][tx + i * BLOCK_WIDTH] = values[i];
+    }
+
+    printf("%d %d %d max: %f\n", by, tx, ty, max_qk);
+    printf("%d %d %d sum: %f\n", by, tx, ty, sum_qk);
+
+    if(tx == 0){
+        shared_max[ty] = max_qk;
+        shared_sum[ty] = sum_qk;
+    }
+    __syncthreads();
+    // **reduce across shared out**
+
+    // right now, each thread in a given warp should have the same sum_qk and max_qk, having just written it out to shared memory
+    // however, we need to transpose the grid in theory to load in the right 32 values
+   
+    // save previous max_qk
+    max_qk = shared_max[tx];
+    sum_qk = shared_sum[tx];
+
+    // adjust the sum and the values
+    float local_max_qk = max_qk;
+    max_qk = warp_max_and_broadcast(max_qk);
+    __syncwarp();
+
+    float alpha = expf(local_max_qk - max_qk); // expf curr_max - new_max
+    sum_qk *= alpha;
+    __syncwarp();
+
+    sum_qk = warp_add_and_broadcast(sum_qk); // now, each warp has the same sum from adding up all of the sums adjusted by alpha
+
+    printf("Global values: tx %d ty %d local_max %f global_max %f alpha %f sum %f\n", tx, ty, local_max_qk, max_qk, alpha, sum_qk);
+
+    float tm_coalesced_out[D / BLOCK_WIDTH];
+
+    // each warp handles 32 separate tokens for a given dimension
+    // meaning each thread must handle the 4 dimensions
+    for(int d = ty; d < D; d += BLOCK_WIDTH){
+        float value = shared_out[tx][d] * alpha;
+        // add the values together
+        value = warp_add_and_broadcast(value);
+        __syncwarp();
+        tm_coalesced_out[d / BLOCK_WIDTH] = value;
     }
 
     if(tx == 0){
-        for(int i = 1; i < BLOCK_TOKENS; i++){
-            float old_max_acc = max_acc;
-            max_acc = fmaxf(max_acc, shared_max[i]);
-            float alpha = expf(old_max_acc - max_acc);
-            float beta = expf(shared_max[i] - max_acc);
-            for(int d = 0; d < D; d++){
-                shared_out[tx][d] = alpha * shared_out[tx][d] + beta * shared_out[i][d];
-            }
-            shared_sum[tx] = alpha * shared_sum[tx] + beta * shared_sum[i]; // this is the key learning from this representation
+        for(int i = 0; i < D / BLOCK_WIDTH; i++){
+            coalesced_out[i * BLOCK_WIDTH + ty] = tm_coalesced_out[i];
         }
+    }
+    
+    __syncthreads();
 
-        for(int i = 0; i < D; i++){
-            output[batch * num_blocks_for_head * D + bx * D + i] = shared_sum[tx][i];
+    // write out
+    if(ty == 0){
+        for(int d = tx; d < D; d += BLOCK_WIDTH) {
+            output[batch * num_blocks_per_head * D + by * D + d] = coalesced_out[d];
+        }
+        if(tx == 0){
+            output_sum[batch * num_blocks_per_head + by] = sum_qk;
+            output_max[batch * num_blocks_per_head + by] = max_qk;
         }
     }
 }
