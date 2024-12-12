@@ -1,266 +1,266 @@
 Shared memory per block: 49152 bytes
-Num blocks per head 2
+Num blocks per head 1
 No CUDA error.
-batch=0, nbph=2, by=0, d=0, val=-1.494575
-batch=0, nbph=2, by=0, d=1, val=-1.940570
-batch=0, nbph=2, by=0, d=2, val=0.082995
-batch=0, nbph=2, by=0, d=3, val=-0.328530
-batch=0, nbph=2, by=0, d=4, val=1.222901
-batch=0, nbph=2, by=0, d=5, val=0.075095
-batch=0, nbph=2, by=0, d=6, val=0.952420
-batch=0, nbph=2, by=0, d=7, val=0.967565
-batch=0, nbph=2, by=0, d=8, val=0.699545
-batch=0, nbph=2, by=0, d=9, val=1.242331
-batch=0, nbph=2, by=0, d=10, val=0.819520
-batch=0, nbph=2, by=0, d=11, val=-1.375369
-batch=0, nbph=2, by=0, d=12, val=-0.624828
-batch=0, nbph=2, by=0, d=13, val=2.184198
-batch=0, nbph=2, by=0, d=14, val=1.477114
-batch=0, nbph=2, by=0, d=15, val=-1.011394
-batch=0, nbph=2, by=0, d=16, val=-0.094051
-batch=0, nbph=2, by=0, d=17, val=-0.367001
-batch=0, nbph=2, by=0, d=18, val=-1.762171
-batch=0, nbph=2, by=0, d=19, val=0.003524
-batch=0, nbph=2, by=0, d=20, val=0.368343
-batch=0, nbph=2, by=0, d=21, val=-0.704581
-batch=0, nbph=2, by=0, d=22, val=0.796923
-batch=0, nbph=2, by=0, d=23, val=1.233929
-batch=0, nbph=2, by=0, d=24, val=-1.305774
-batch=0, nbph=2, by=0, d=25, val=0.696794
-batch=0, nbph=2, by=0, d=26, val=0.575045
-batch=0, nbph=2, by=0, d=27, val=0.442103
-batch=0, nbph=2, by=0, d=28, val=0.681065
-batch=0, nbph=2, by=0, d=29, val=-0.581090
-batch=0, nbph=2, by=0, d=30, val=-0.855822
-batch=0, nbph=2, by=0, d=31, val=-0.577665
-batch=0, nbph=2, by=1, d=0, val=-0.180928
-batch=0, nbph=2, by=1, d=1, val=-0.306555
-batch=0, nbph=2, by=1, d=2, val=-0.091961
-batch=0, nbph=2, by=1, d=3, val=-0.138578
-batch=0, nbph=2, by=1, d=4, val=-0.037784
-batch=0, nbph=2, by=1, d=5, val=0.141103
-batch=0, nbph=2, by=1, d=6, val=-0.000550
-batch=0, nbph=2, by=1, d=7, val=0.021246
-batch=0, nbph=2, by=1, d=8, val=0.002942
-batch=0, nbph=2, by=1, d=9, val=0.164864
-batch=0, nbph=2, by=1, d=10, val=-0.144645
-batch=0, nbph=2, by=1, d=11, val=-0.020285
-batch=0, nbph=2, by=1, d=12, val=-0.011491
-batch=0, nbph=2, by=1, d=13, val=0.082778
-batch=0, nbph=2, by=1, d=14, val=-0.126609
-batch=0, nbph=2, by=1, d=15, val=0.213640
-batch=0, nbph=2, by=1, d=16, val=0.148758
-batch=0, nbph=2, by=1, d=17, val=0.183432
-batch=0, nbph=2, by=1, d=18, val=0.164296
-batch=0, nbph=2, by=1, d=19, val=0.013081
-batch=0, nbph=2, by=1, d=20, val=0.000313
-batch=0, nbph=2, by=1, d=21, val=0.054172
-batch=0, nbph=2, by=1, d=22, val=0.025160
-batch=0, nbph=2, by=1, d=23, val=-0.008301
-batch=0, nbph=2, by=1, d=24, val=-0.191131
-batch=0, nbph=2, by=1, d=25, val=0.006264
-batch=0, nbph=2, by=1, d=26, val=-0.069475
-batch=0, nbph=2, by=1, d=27, val=-0.145791
-batch=0, nbph=2, by=1, d=28, val=0.091295
-batch=0, nbph=2, by=1, d=29, val=-0.231531
-batch=0, nbph=2, by=1, d=30, val=0.123337
-batch=0, nbph=2, by=1, d=31, val=-0.090475
-batch=0, nbph=2, by=1, d=32, val=0.001334
-batch=0, nbph=2, by=1, d=33, val=-0.061946
-batch=0, nbph=2, by=1, d=34, val=-0.103017
-batch=0, nbph=2, by=1, d=35, val=-0.039785
-batch=0, nbph=2, by=1, d=36, val=-0.023531
-batch=0, nbph=2, by=1, d=37, val=-0.039527
-batch=0, nbph=2, by=1, d=38, val=-0.186098
-batch=0, nbph=2, by=1, d=39, val=0.011980
-batch=0, nbph=2, by=1, d=40, val=0.249021
-batch=0, nbph=2, by=1, d=41, val=0.008176
-batch=0, nbph=2, by=1, d=42, val=0.007449
-batch=0, nbph=2, by=1, d=43, val=-0.004516
-batch=0, nbph=2, by=1, d=44, val=-0.068143
-batch=0, nbph=2, by=1, d=45, val=0.142872
-batch=0, nbph=2, by=1, d=46, val=-0.239612
-batch=0, nbph=2, by=1, d=47, val=-0.132535
-batch=0, nbph=2, by=1, d=48, val=-0.028099
-batch=0, nbph=2, by=1, d=49, val=0.009788
-batch=0, nbph=2, by=1, d=50, val=-0.156034
-batch=0, nbph=2, by=1, d=51, val=0.038994
-batch=0, nbph=2, by=1, d=52, val=-0.161024
-batch=0, nbph=2, by=1, d=53, val=0.128381
-batch=0, nbph=2, by=1, d=54, val=0.089599
-batch=0, nbph=2, by=1, d=55, val=0.063693
-batch=0, nbph=2, by=1, d=56, val=-0.100956
-batch=0, nbph=2, by=1, d=57, val=0.071739
-batch=0, nbph=2, by=1, d=58, val=0.090217
-batch=0, nbph=2, by=1, d=59, val=-0.026316
-batch=0, nbph=2, by=1, d=60, val=0.060562
-batch=0, nbph=2, by=1, d=61, val=0.099766
-batch=0, nbph=2, by=1, d=62, val=-0.080490
-batch=0, nbph=2, by=1, d=63, val=-0.148016
-batch=0, nbph=2, by=0, d=32, val=-0.366973
-batch=0, nbph=2, by=0, d=33, val=0.435716
-batch=0, nbph=2, by=0, d=34, val=-0.594078
-batch=0, nbph=2, by=0, d=35, val=-1.108382
-batch=0, nbph=2, by=0, d=36, val=-0.120650
-batch=0, nbph=2, by=0, d=37, val=1.364486
-batch=0, nbph=2, by=0, d=38, val=2.228241
-batch=0, nbph=2, by=0, d=39, val=-0.439224
-batch=0, nbph=2, by=0, d=40, val=-0.290053
-batch=0, nbph=2, by=0, d=41, val=-1.553879
-batch=0, nbph=2, by=0, d=42, val=-0.646570
-batch=0, nbph=2, by=0, d=43, val=0.097976
-batch=0, nbph=2, by=0, d=44, val=1.133263
-batch=0, nbph=2, by=0, d=45, val=1.824483
-batch=0, nbph=2, by=0, d=46, val=0.106990
-batch=0, nbph=2, by=0, d=47, val=0.020641
-batch=0, nbph=2, by=0, d=48, val=-0.363766
-batch=0, nbph=2, by=0, d=49, val=-0.351221
-batch=0, nbph=2, by=0, d=50, val=0.624533
-batch=0, nbph=2, by=0, d=51, val=2.172545
-batch=0, nbph=2, by=0, d=52, val=0.341703
-batch=0, nbph=2, by=0, d=53, val=1.340645
-batch=0, nbph=2, by=0, d=54, val=0.408616
-batch=0, nbph=2, by=0, d=55, val=1.122366
-batch=0, nbph=2, by=0, d=56, val=0.776151
-batch=0, nbph=2, by=0, d=57, val=-1.339988
-batch=0, nbph=2, by=0, d=58, val=-0.479342
-batch=0, nbph=2, by=0, d=59, val=-0.456942
-batch=0, nbph=2, by=0, d=60, val=0.447205
-batch=0, nbph=2, by=0, d=61, val=-2.013863
-batch=0, nbph=2, by=0, d=62, val=-0.739081
-batch=0, nbph=2, by=0, d=63, val=0.708801
-batch=0, by=1, sum_qk=1.267794, max_qk=18.591951
-batch=0, by=0, sum_qk=1.102195, max_qk=16.144110
--1.355999 -1.760642 0.075300 -0.298069 1.109515 0.068132 0.864113 0.877853 0.634684 1.127143 0.743535 -1.247846 -0.566895 1.981681 1.340157 -0.917618 -0.085331 -0.332973 -1.598784 0.003197 0.334191 -0.639253 0.723033 1.119520 -1.184704 0.632188 0.521727 0.401111 0.617918 -0.527212 -0.776471 -0.524105 -0.332947 0.395317 -0.538995 -1.005614 -0.109463 1.237972 2.021640 -0.398500 -0.263160 -1.409805 -0.586621 0.088892 1.028188 1.655319 0.097070 0.018727 -0.330038 -0.318656 0.566627 1.971109 0.310021 1.216341 0.370729 1.018301 0.704187 -1.215745 -0.434898 -0.414575 0.405741 -1.827139 -0.670554 0.643082 -0.142711 -0.241802 -0.072537 -0.109306 -0.029803 0.111298 -0.000434 0.016758 0.002320 0.130040 -0.114092 -0.016000 -0.009064 0.065293 -0.099865 0.168513 0.117336 0.144686 0.129592 0.010318 0.000247 0.042729 0.019846 -0.006548 -0.150759 0.004941 -0.054800 -0.114996 0.072011 -0.182625 0.097285 -0.071365 0.001052 -0.048861 -0.081257 -0.031381 -0.018561 -0.031178 -0.146789 0.009449 0.196420 0.006449 0.005876 -0.003562 -0.053749 0.112693 -0.188999 -0.104540 -0.022164 0.007721 -0.123075 0.030757 -0.127011 0.101263 0.070673 0.050239 -0.079631 0.056585 0.071160 -0.020757 0.047769 0.078692 -0.063488 -0.116751 
+batch=0, nbph=1, by=0, d=0, val=-2.448497
+batch=0, nbph=1, by=0, d=1, val=0.349150
+batch=0, nbph=1, by=0, d=2, val=1.767997
+batch=0, nbph=1, by=0, d=3, val=0.306588
+batch=0, nbph=1, by=0, d=4, val=1.428077
+batch=0, nbph=1, by=0, d=5, val=-1.341266
+batch=0, nbph=1, by=0, d=6, val=0.586306
+batch=0, nbph=1, by=0, d=7, val=-0.862537
+batch=0, nbph=1, by=0, d=8, val=-0.229691
+batch=0, nbph=1, by=0, d=9, val=-1.588423
+batch=0, nbph=1, by=0, d=10, val=0.189446
+batch=0, nbph=1, by=0, d=11, val=0.103665
+batch=0, nbph=1, by=0, d=12, val=1.793398
+batch=0, nbph=1, by=0, d=13, val=-0.113905
+batch=0, nbph=1, by=0, d=14, val=-1.142008
+batch=0, nbph=1, by=0, d=15, val=1.259238
+batch=0, nbph=1, by=0, d=16, val=0.395835
+batch=0, nbph=1, by=0, d=17, val=0.255281
+batch=0, nbph=1, by=0, d=18, val=0.298145
+batch=0, nbph=1, by=0, d=19, val=0.504873
+batch=0, nbph=1, by=0, d=20, val=-0.195648
+batch=0, nbph=1, by=0, d=21, val=0.590846
+batch=0, nbph=1, by=0, d=22, val=0.148616
+batch=0, nbph=1, by=0, d=23, val=0.616665
+batch=0, nbph=1, by=0, d=24, val=-0.866068
+batch=0, nbph=1, by=0, d=25, val=0.340958
+batch=0, nbph=1, by=0, d=26, val=-0.705760
+batch=0, nbph=1, by=0, d=27, val=0.821497
+batch=0, nbph=1, by=0, d=28, val=-0.140333
+batch=0, nbph=1, by=0, d=29, val=0.760059
+batch=0, nbph=1, by=0, d=30, val=0.549636
+batch=0, nbph=1, by=0, d=31, val=-0.565383
+batch=1, nbph=1, by=0, d=0, val=1.266532
+batch=1, nbph=1, by=0, d=1, val=-0.768904
+batch=1, nbph=1, by=0, d=2, val=-1.350991
+batch=1, nbph=1, by=0, d=3, val=1.378213
+batch=1, nbph=1, by=0, d=4, val=0.904205
+batch=1, nbph=1, by=0, d=5, val=0.993295
+batch=1, nbph=1, by=0, d=6, val=-1.626036
+batch=1, nbph=1, by=0, d=7, val=-0.011280
+batch=1, nbph=1, by=0, d=8, val=2.052036
+batch=1, nbph=1, by=0, d=9, val=0.505292
+batch=1, nbph=1, by=0, d=10, val=-0.495511
+batch=1, nbph=1, by=0, d=11, val=-0.897393
+batch=1, nbph=1, by=0, d=12, val=1.049951
+batch=1, nbph=1, by=0, d=13, val=0.617018
+batch=1, nbph=1, by=0, d=14, val=-1.073018
+batch=1, nbph=1, by=0, d=15, val=-0.915917
+batch=1, nbph=1, by=0, d=16, val=-1.356248
+batch=1, nbph=1, by=0, d=17, val=1.694974
+batch=1, nbph=1, by=0, d=18, val=0.693078
+batch=1, nbph=1, by=0, d=19, val=1.942001
+batch=1, nbph=1, by=0, d=20, val=-0.210965
+batch=1, nbph=1, by=0, d=21, val=-0.159783
+batch=1, nbph=1, by=0, d=22, val=-0.036876
+batch=1, nbph=1, by=0, d=23, val=-1.398738
+batch=1, nbph=1, by=0, d=24, val=0.986240
+batch=1, nbph=1, by=0, d=25, val=-0.283507
+batch=1, nbph=1, by=0, d=26, val=0.139984
+batch=1, nbph=1, by=0, d=27, val=0.075402
+batch=1, nbph=1, by=0, d=28, val=-0.458325
+batch=1, nbph=1, by=0, d=29, val=0.070723
+batch=1, nbph=1, by=0, d=30, val=-0.012814
+batch=1, nbph=1, by=0, d=31, val=0.096644
+batch=0, nbph=1, by=0, d=32, val=-1.304310
+batch=0, nbph=1, by=0, d=33, val=-0.371727
+batch=0, nbph=1, by=0, d=34, val=1.512722
+batch=0, nbph=1, by=0, d=35, val=-1.477022
+batch=0, nbph=1, by=0, d=36, val=1.741397
+batch=0, nbph=1, by=0, d=37, val=-1.550653
+batch=0, nbph=1, by=0, d=38, val=0.269150
+batch=0, nbph=1, by=0, d=39, val=2.130475
+batch=0, nbph=1, by=0, d=40, val=-0.419371
+batch=0, nbph=1, by=0, d=41, val=-0.106591
+batch=0, nbph=1, by=0, d=42, val=0.953900
+batch=0, nbph=1, by=0, d=43, val=-0.205207
+batch=0, nbph=1, by=0, d=44, val=1.230525
+batch=0, nbph=1, by=0, d=45, val=1.171438
+batch=0, nbph=1, by=0, d=46, val=-0.689466
+batch=0, nbph=1, by=0, d=47, val=1.322546
+batch=0, nbph=1, by=0, d=48, val=-0.878819
+batch=0, nbph=1, by=0, d=49, val=-0.208855
+batch=0, nbph=1, by=0, d=50, val=1.052535
+batch=0, nbph=1, by=0, d=51, val=0.758170
+batch=0, nbph=1, by=0, d=52, val=1.175965
+batch=0, nbph=1, by=0, d=53, val=0.253558
+batch=0, nbph=1, by=0, d=54, val=1.070565
+batch=0, nbph=1, by=0, d=55, val=0.442006
+batch=0, nbph=1, by=0, d=56, val=-2.057367
+batch=0, nbph=1, by=0, d=57, val=1.553415
+batch=0, nbph=1, by=0, d=58, val=0.450048
+batch=0, nbph=1, by=0, d=59, val=0.921399
+batch=0, nbph=1, by=0, d=60, val=-0.303439
+batch=0, nbph=1, by=0, d=61, val=0.155951
+batch=0, nbph=1, by=0, d=62, val=-0.253718
+batch=0, nbph=1, by=0, d=63, val=-0.156747
+batch=1, nbph=1, by=0, d=32, val=-0.041003
+batch=1, nbph=1, by=0, d=33, val=-2.146858
+batch=1, nbph=1, by=0, d=34, val=-0.178783
+batch=1, nbph=1, by=0, d=35, val=-0.179214
+batch=1, nbph=1, by=0, d=36, val=1.854065
+batch=1, nbph=1, by=0, d=37, val=1.384237
+batch=1, nbph=1, by=0, d=38, val=0.292563
+batch=1, nbph=1, by=0, d=39, val=0.071508
+batch=1, nbph=1, by=0, d=40, val=-1.910996
+batch=1, nbph=1, by=0, d=41, val=-0.545941
+batch=1, nbph=1, by=0, d=42, val=-0.133152
+batch=1, nbph=1, by=0, d=43, val=0.938649
+batch=1, nbph=1, by=0, d=44, val=-0.463160
+batch=1, nbph=1, by=0, d=45, val=-0.109711
+batch=1, nbph=1, by=0, d=46, val=-0.419210
+batch=1, nbph=1, by=0, d=47, val=-0.160610
+batch=1, nbph=1, by=0, d=48, val=-0.056836
+batch=1, nbph=1, by=0, d=49, val=-2.109809
+batch=1, nbph=1, by=0, d=50, val=0.627363
+batch=1, nbph=1, by=0, d=51, val=-0.361926
+batch=1, nbph=1, by=0, d=52, val=-0.864807
+batch=1, nbph=1, by=0, d=53, val=1.195771
+batch=1, nbph=1, by=0, d=54, val=-1.072252
+batch=1, nbph=1, by=0, d=55, val=1.987513
+batch=1, nbph=1, by=0, d=56, val=-1.887783
+batch=1, nbph=1, by=0, d=57, val=0.336054
+batch=1, nbph=1, by=0, d=58, val=0.478311
+batch=1, nbph=1, by=0, d=59, val=1.164406
+batch=1, nbph=1, by=0, d=60, val=0.124950
+batch=1, nbph=1, by=0, d=61, val=0.219215
+batch=1, nbph=1, by=0, d=62, val=0.665166
+batch=1, nbph=1, by=0, d=63, val=0.383442
+batch=0, by=0, sum_qk=1.012444, max_qk=32.323616
+batch=1, by=0, sum_qk=1.760237, max_qk=18.199940
+-2.418402 0.344859 1.746266 0.302820 1.410524 -1.324780 0.579099 -0.851935 -0.226868 -1.568899 0.187117 0.102391 1.771354 -0.112505 -1.127971 1.243761 0.390970 0.252143 0.294481 0.498668 -0.193243 0.583584 0.146789 0.609086 -0.855423 0.336767 -0.697085 0.811400 -0.138608 0.750717 0.542880 -0.558434 -1.288279 -0.367158 1.494129 -1.458868 1.719993 -1.531594 0.265841 2.104289 -0.414217 -0.105281 0.942176 -0.202685 1.215401 1.157040 -0.680992 1.306290 -0.868017 -0.206288 1.039598 0.748851 1.161511 0.250441 1.057406 0.436573 -2.032080 1.534321 0.444516 0.910074 -0.299709 0.154034 -0.250600 -0.154820 0.719524 -0.436818 -0.767505 0.782970 0.513684 0.564296 -0.923760 -0.006408 1.165773 0.287059 -0.281503 -0.509814 0.596483 0.350531 -0.609587 -0.520338 -0.770492 0.962924 0.393741 1.103261 -0.119850 -0.090773 -0.020949 -0.794630 0.560288 -0.161062 0.079526 0.042836 -0.260377 0.040178 -0.007280 0.054904 -0.023294 -1.219642 -0.101568 -0.101813 1.053305 0.786392 0.166207 0.040624 -1.085647 -0.310152 -0.075645 0.533252 -0.263124 -0.062327 -0.238156 -0.091243 -0.032289 -1.198594 0.356408 -0.205612 -0.491302 0.679324 -0.609152 1.129117 -1.072460 0.190914 0.271731 0.661506 0.070985 0.124537 0.377885 0.217835 
 Working on reduction kernel...
-Loading value into shared mem: ty=0 tx=32 -0.366973
-Loading value into shared mem: ty=0 tx=33 0.435716
-Loading value into shared mem: ty=0 tx=34 -0.594078
-Loading value into shared mem: ty=0 tx=35 -1.108382
-Loading value into shared mem: ty=0 tx=36 -0.120650
-Loading value into shared mem: ty=0 tx=37 1.364486
-Loading value into shared mem: ty=0 tx=38 2.228241
-Loading value into shared mem: ty=0 tx=39 -0.439224
-Loading value into shared mem: ty=0 tx=40 -0.290053
-Loading value into shared mem: ty=0 tx=41 -1.553879
-Loading value into shared mem: ty=0 tx=42 -0.646570
-Loading value into shared mem: ty=0 tx=43 0.097976
-Loading value into shared mem: ty=0 tx=44 1.133263
-Loading value into shared mem: ty=0 tx=45 1.824483
-Loading value into shared mem: ty=0 tx=46 0.106990
-Loading value into shared mem: ty=0 tx=47 0.020641
-Loading value into shared mem: ty=0 tx=48 -0.363766
-Loading value into shared mem: ty=0 tx=49 -0.351221
-Loading value into shared mem: ty=0 tx=50 0.624533
-Loading value into shared mem: ty=0 tx=51 2.172545
-Loading value into shared mem: ty=0 tx=52 0.341703
-Loading value into shared mem: ty=0 tx=53 1.340645
-Loading value into shared mem: ty=0 tx=54 0.408616
-Loading value into shared mem: ty=0 tx=55 1.122366
-Loading value into shared mem: ty=0 tx=56 0.776151
-Loading value into shared mem: ty=0 tx=57 -1.339988
-Loading value into shared mem: ty=0 tx=58 -0.479342
-Loading value into shared mem: ty=0 tx=59 -0.456942
-Loading value into shared mem: ty=0 tx=60 0.447205
-Loading value into shared mem: ty=0 tx=61 -2.013863
-Loading value into shared mem: ty=0 tx=62 -0.739081
-Loading value into shared mem: ty=0 tx=63 0.708801
-Loading value into shared mem: ty=1 tx=0 -0.180928
-Loading value into shared mem: ty=1 tx=1 -0.306555
-Loading value into shared mem: ty=1 tx=2 -0.091961
-Loading value into shared mem: ty=1 tx=3 -0.138578
-Loading value into shared mem: ty=1 tx=4 -0.037784
-Loading value into shared mem: ty=1 tx=5 0.141103
-Loading value into shared mem: ty=1 tx=6 -0.000550
-Loading value into shared mem: ty=1 tx=7 0.021246
-Loading value into shared mem: ty=1 tx=8 0.002942
-Loading value into shared mem: ty=1 tx=9 0.164864
-Loading value into shared mem: ty=1 tx=10 -0.144645
-Loading value into shared mem: ty=1 tx=11 -0.020285
-Loading value into shared mem: ty=1 tx=12 -0.011491
-Loading value into shared mem: ty=1 tx=13 0.082778
-Loading value into shared mem: ty=1 tx=14 -0.126609
-Loading value into shared mem: ty=1 tx=15 0.213640
-Loading value into shared mem: ty=1 tx=16 0.148758
-Loading value into shared mem: ty=1 tx=17 0.183432
-Loading value into shared mem: ty=1 tx=18 0.164296
-Loading value into shared mem: ty=1 tx=19 0.013081
-Loading value into shared mem: ty=1 tx=20 0.000313
-Loading value into shared mem: ty=1 tx=21 0.054172
-Loading value into shared mem: ty=1 tx=22 0.025160
-Loading value into shared mem: ty=1 tx=23 -0.008301
-Loading value into shared mem: ty=1 tx=24 -0.191131
-Loading value into shared mem: ty=1 tx=25 0.006264
-Loading value into shared mem: ty=1 tx=26 -0.069475
-Loading value into shared mem: ty=1 tx=27 -0.145791
-Loading value into shared mem: ty=1 tx=28 0.091295
-Loading value into shared mem: ty=1 tx=29 -0.231531
-Loading value into shared mem: ty=1 tx=30 0.123337
-Loading value into shared mem: ty=1 tx=31 -0.090475
-Loading value into shared mem: ty=1 tx=32 0.001334
-Loading value into shared mem: ty=1 tx=33 -0.061946
-Loading value into shared mem: ty=1 tx=34 -0.103017
-Loading value into shared mem: ty=1 tx=35 -0.039785
-Loading value into shared mem: ty=1 tx=36 -0.023531
-Loading value into shared mem: ty=1 tx=37 -0.039527
-Loading value into shared mem: ty=1 tx=38 -0.186098
-Loading value into shared mem: ty=1 tx=39 0.011980
-Loading value into shared mem: ty=1 tx=40 0.249021
-Loading value into shared mem: ty=1 tx=41 0.008176
-Loading value into shared mem: ty=1 tx=42 0.007449
-Loading value into shared mem: ty=1 tx=43 -0.004516
-Loading value into shared mem: ty=1 tx=44 -0.068143
-Loading value into shared mem: ty=1 tx=45 0.142872
-Loading value into shared mem: ty=1 tx=46 -0.239612
-Loading value into shared mem: ty=1 tx=47 -0.132535
-Loading value into shared mem: ty=1 tx=48 -0.028099
-Loading value into shared mem: ty=1 tx=49 0.009788
-Loading value into shared mem: ty=1 tx=50 -0.156034
-Loading value into shared mem: ty=1 tx=51 0.038994
-Loading value into shared mem: ty=1 tx=52 -0.161024
-Loading value into shared mem: ty=1 tx=53 0.128381
-Loading value into shared mem: ty=1 tx=54 0.089599
-Loading value into shared mem: ty=1 tx=55 0.063693
-Loading value into shared mem: ty=1 tx=56 -0.100956
-Loading value into shared mem: ty=1 tx=57 0.071739
-Loading value into shared mem: ty=1 tx=58 0.090217
-Loading value into shared mem: ty=1 tx=59 -0.026316
-Loading value into shared mem: ty=1 tx=60 0.060562
-Loading value into shared mem: ty=1 tx=61 0.099766
-Loading value into shared mem: ty=1 tx=62 -0.080490
-Loading value into shared mem: ty=1 tx=63 -0.148016
-Loading value into shared mem: ty=0 tx=0 -1.494575
-Loading value into shared mem: ty=0 tx=1 -1.940570
-Loading value into shared mem: ty=0 tx=2 0.082995
-Loading value into shared mem: ty=0 tx=3 -0.328530
-Loading value into shared mem: ty=0 tx=4 1.222901
-Loading value into shared mem: ty=0 tx=5 0.075095
-Loading value into shared mem: ty=0 tx=6 0.952420
-Loading value into shared mem: ty=0 tx=7 0.967565
-Loading value into shared mem: ty=0 tx=8 0.699545
-Loading value into shared mem: ty=0 tx=9 1.242331
-Loading value into shared mem: ty=0 tx=10 0.819520
-Loading value into shared mem: ty=0 tx=11 -1.375369
-Loading value into shared mem: ty=0 tx=12 -0.624828
-Loading value into shared mem: ty=0 tx=13 2.184198
-Loading value into shared mem: ty=0 tx=14 1.477114
-Loading value into shared mem: ty=0 tx=15 -1.011394
-Loading value into shared mem: ty=0 tx=16 -0.094051
-Loading value into shared mem: ty=0 tx=17 -0.367001
-Loading value into shared mem: ty=0 tx=18 -1.762171
-Loading value into shared mem: ty=0 tx=19 0.003524
-Loading value into shared mem: ty=0 tx=20 0.368343
-Loading value into shared mem: ty=0 tx=21 -0.704581
-Loading value into shared mem: ty=0 tx=22 0.796923
-Loading value into shared mem: ty=0 tx=23 1.233929
-Loading value into shared mem: ty=0 tx=24 -1.305774
-Loading value into shared mem: ty=0 tx=25 0.696794
-Loading value into shared mem: ty=0 tx=26 0.575045
-Loading value into shared mem: ty=0 tx=27 0.442103
-Loading value into shared mem: ty=0 tx=28 0.681065
-Loading value into shared mem: ty=0 tx=29 -0.581090
-Loading value into shared mem: ty=0 tx=30 -0.855822
-Loading value into shared mem: ty=0 tx=31 -0.577665
+Loading value into shared mem: ty=0 tx=0 1.266532
+Loading value into shared mem: ty=0 tx=1 -0.768904
+Loading value into shared mem: ty=0 tx=2 -1.350991
+Loading value into shared mem: ty=0 tx=3 1.378213
+Loading value into shared mem: ty=0 tx=4 0.904205
+Loading value into shared mem: ty=0 tx=5 0.993295
+Loading value into shared mem: ty=0 tx=6 -1.626036
+Loading value into shared mem: ty=0 tx=7 -0.011280
+Loading value into shared mem: ty=0 tx=8 2.052036
+Loading value into shared mem: ty=0 tx=9 0.505292
+Loading value into shared mem: ty=0 tx=10 -0.495511
+Loading value into shared mem: ty=0 tx=11 -0.897393
+Loading value into shared mem: ty=0 tx=12 1.049951
+Loading value into shared mem: ty=0 tx=13 0.617018
+Loading value into shared mem: ty=0 tx=14 -1.073018
+Loading value into shared mem: ty=0 tx=15 -0.915917
+Loading value into shared mem: ty=0 tx=16 -1.356248
+Loading value into shared mem: ty=0 tx=17 1.694974
+Loading value into shared mem: ty=0 tx=18 0.693078
+Loading value into shared mem: ty=0 tx=19 1.942001
+Loading value into shared mem: ty=0 tx=20 -0.210965
+Loading value into shared mem: ty=0 tx=21 -0.159783
+Loading value into shared mem: ty=0 tx=22 -0.036876
+Loading value into shared mem: ty=0 tx=23 -1.398738
+Loading value into shared mem: ty=0 tx=24 0.986240
+Loading value into shared mem: ty=0 tx=25 -0.283507
+Loading value into shared mem: ty=0 tx=26 0.139984
+Loading value into shared mem: ty=0 tx=27 0.075402
+Loading value into shared mem: ty=0 tx=28 -0.458325
+Loading value into shared mem: ty=0 tx=29 0.070723
+Loading value into shared mem: ty=0 tx=30 -0.012814
+Loading value into shared mem: ty=0 tx=31 0.096644
+Loading value into shared mem: ty=0 tx=32 -0.041003
+Loading value into shared mem: ty=0 tx=33 -2.146858
+Loading value into shared mem: ty=0 tx=34 -0.178783
+Loading value into shared mem: ty=0 tx=35 -0.179214
+Loading value into shared mem: ty=0 tx=36 1.854065
+Loading value into shared mem: ty=0 tx=37 1.384237
+Loading value into shared mem: ty=0 tx=38 0.292563
+Loading value into shared mem: ty=0 tx=39 0.071508
+Loading value into shared mem: ty=0 tx=40 -1.910996
+Loading value into shared mem: ty=0 tx=41 -0.545941
+Loading value into shared mem: ty=0 tx=42 -0.133152
+Loading value into shared mem: ty=0 tx=43 0.938649
+Loading value into shared mem: ty=0 tx=44 -0.463160
+Loading value into shared mem: ty=0 tx=45 -0.109711
+Loading value into shared mem: ty=0 tx=46 -0.419210
+Loading value into shared mem: ty=0 tx=47 -0.160610
+Loading value into shared mem: ty=0 tx=48 -0.056836
+Loading value into shared mem: ty=0 tx=49 -2.109809
+Loading value into shared mem: ty=0 tx=50 0.627363
+Loading value into shared mem: ty=0 tx=51 -0.361926
+Loading value into shared mem: ty=0 tx=52 -0.864807
+Loading value into shared mem: ty=0 tx=53 1.195771
+Loading value into shared mem: ty=0 tx=54 -1.072252
+Loading value into shared mem: ty=0 tx=55 1.987513
+Loading value into shared mem: ty=0 tx=56 -1.887783
+Loading value into shared mem: ty=0 tx=57 0.336054
+Loading value into shared mem: ty=0 tx=58 0.478311
+Loading value into shared mem: ty=0 tx=59 1.164406
+Loading value into shared mem: ty=0 tx=60 0.124950
+Loading value into shared mem: ty=0 tx=61 0.219215
+Loading value into shared mem: ty=0 tx=62 0.665166
+Loading value into shared mem: ty=0 tx=63 0.383442
+Loading value into shared mem: ty=0 tx=0 -2.448497
+Loading value into shared mem: ty=0 tx=1 0.349150
+Loading value into shared mem: ty=0 tx=2 1.767997
+Loading value into shared mem: ty=0 tx=3 0.306588
+Loading value into shared mem: ty=0 tx=4 1.428077
+Loading value into shared mem: ty=0 tx=5 -1.341266
+Loading value into shared mem: ty=0 tx=6 0.586306
+Loading value into shared mem: ty=0 tx=7 -0.862537
+Loading value into shared mem: ty=0 tx=8 -0.229691
+Loading value into shared mem: ty=0 tx=9 -1.588423
+Loading value into shared mem: ty=0 tx=10 0.189446
+Loading value into shared mem: ty=0 tx=11 0.103665
+Loading value into shared mem: ty=0 tx=12 1.793398
+Loading value into shared mem: ty=0 tx=13 -0.113905
+Loading value into shared mem: ty=0 tx=14 -1.142008
+Loading value into shared mem: ty=0 tx=15 1.259238
+Loading value into shared mem: ty=0 tx=16 0.395835
+Loading value into shared mem: ty=0 tx=17 0.255281
+Loading value into shared mem: ty=0 tx=18 0.298145
+Loading value into shared mem: ty=0 tx=19 0.504873
+Loading value into shared mem: ty=0 tx=20 -0.195648
+Loading value into shared mem: ty=0 tx=21 0.590846
+Loading value into shared mem: ty=0 tx=22 0.148616
+Loading value into shared mem: ty=0 tx=23 0.616665
+Loading value into shared mem: ty=0 tx=24 -0.866068
+Loading value into shared mem: ty=0 tx=25 0.340958
+Loading value into shared mem: ty=0 tx=26 -0.705760
+Loading value into shared mem: ty=0 tx=27 0.821497
+Loading value into shared mem: ty=0 tx=28 -0.140333
+Loading value into shared mem: ty=0 tx=29 0.760059
+Loading value into shared mem: ty=0 tx=30 0.549636
+Loading value into shared mem: ty=0 tx=31 -0.565383
+Loading value into shared mem: ty=0 tx=32 -1.304310
+Loading value into shared mem: ty=0 tx=33 -0.371727
+Loading value into shared mem: ty=0 tx=34 1.512722
+Loading value into shared mem: ty=0 tx=35 -1.477022
+Loading value into shared mem: ty=0 tx=36 1.741397
+Loading value into shared mem: ty=0 tx=37 -1.550653
+Loading value into shared mem: ty=0 tx=38 0.269150
+Loading value into shared mem: ty=0 tx=39 2.130475
+Loading value into shared mem: ty=0 tx=40 -0.419371
+Loading value into shared mem: ty=0 tx=41 -0.106591
+Loading value into shared mem: ty=0 tx=42 0.953900
+Loading value into shared mem: ty=0 tx=43 -0.205207
+Loading value into shared mem: ty=0 tx=44 1.230525
+Loading value into shared mem: ty=0 tx=45 1.171438
+Loading value into shared mem: ty=0 tx=46 -0.689466
+Loading value into shared mem: ty=0 tx=47 1.322546
+Loading value into shared mem: ty=0 tx=48 -0.878819
+Loading value into shared mem: ty=0 tx=49 -0.208855
+Loading value into shared mem: ty=0 tx=50 1.052535
+Loading value into shared mem: ty=0 tx=51 0.758170
+Loading value into shared mem: ty=0 tx=52 1.175965
+Loading value into shared mem: ty=0 tx=53 0.253558
+Loading value into shared mem: ty=0 tx=54 1.070565
+Loading value into shared mem: ty=0 tx=55 0.442006
+Loading value into shared mem: ty=0 tx=56 -2.057367
+Loading value into shared mem: ty=0 tx=57 1.553415
+Loading value into shared mem: ty=0 tx=58 0.450048
+Loading value into shared mem: ty=0 tx=59 0.921399
+Loading value into shared mem: ty=0 tx=60 -0.303439
+Loading value into shared mem: ty=0 tx=61 0.155951
+Loading value into shared mem: ty=0 tx=62 -0.253718
+Loading value into shared mem: ty=0 tx=63 -0.156747
 Stride: 1
 Stride: 1
 Stride: 1
@@ -389,6 +389,38 @@ Stride: 1
 Stride: 1
 Stride: 1
 Stride: 1
+Adding 0 and 1 together at x dimension value 0
+Adding 0 and 1 together at x dimension value 1
+Adding 0 and 1 together at x dimension value 2
+Adding 0 and 1 together at x dimension value 3
+Adding 0 and 1 together at x dimension value 4
+Adding 0 and 1 together at x dimension value 5
+Adding 0 and 1 together at x dimension value 6
+Adding 0 and 1 together at x dimension value 7
+Adding 0 and 1 together at x dimension value 8
+Adding 0 and 1 together at x dimension value 9
+Adding 0 and 1 together at x dimension value 10
+Adding 0 and 1 together at x dimension value 11
+Adding 0 and 1 together at x dimension value 12
+Adding 0 and 1 together at x dimension value 13
+Adding 0 and 1 together at x dimension value 14
+Adding 0 and 1 together at x dimension value 15
+Adding 0 and 1 together at x dimension value 16
+Adding 0 and 1 together at x dimension value 17
+Adding 0 and 1 together at x dimension value 18
+Adding 0 and 1 together at x dimension value 19
+Adding 0 and 1 together at x dimension value 20
+Adding 0 and 1 together at x dimension value 21
+Adding 0 and 1 together at x dimension value 22
+Adding 0 and 1 together at x dimension value 23
+Adding 0 and 1 together at x dimension value 24
+Adding 0 and 1 together at x dimension value 25
+Adding 0 and 1 together at x dimension value 26
+Adding 0 and 1 together at x dimension value 27
+Adding 0 and 1 together at x dimension value 28
+Adding 0 and 1 together at x dimension value 29
+Adding 0 and 1 together at x dimension value 30
+Adding 0 and 1 together at x dimension value 31
 Adding 0 and 1 together at x dimension value 32
 Adding 0 and 1 together at x dimension value 33
 Adding 0 and 1 together at x dimension value 34
@@ -453,133 +485,294 @@ Adding 0 and 1 together at x dimension value 28
 Adding 0 and 1 together at x dimension value 29
 Adding 0 and 1 together at x dimension value 30
 Adding 0 and 1 together at x dimension value 31
-Shared mem value of 0+1=1 at dim 32, value 0.001334
-Shared mem value of 0+1=1 at dim 33, value -0.061946
-Shared mem value of 0+1=1 at dim 34, value -0.103017
-Shared mem value of 0+1=1 at dim 35, value -0.039785
-Shared mem value of 0+1=1 at dim 36, value -0.023531
-Shared mem value of 0+1=1 at dim 37, value -0.039527
-Shared mem value of 0+1=1 at dim 38, value -0.186098
-Shared mem value of 0+1=1 at dim 39, value 0.011980
-Shared mem value of 0+1=1 at dim 40, value 0.249021
-Shared mem value of 0+1=1 at dim 41, value 0.008176
-Shared mem value of 0+1=1 at dim 42, value 0.007449
-Shared mem value of 0+1=1 at dim 43, value -0.004516
-Shared mem value of 0+1=1 at dim 44, value -0.068143
-Shared mem value of 0+1=1 at dim 45, value 0.142872
-Shared mem value of 0+1=1 at dim 46, value -0.239612
-Shared mem value of 0+1=1 at dim 47, value -0.132535
-Shared mem value of 0+1=1 at dim 48, value -0.028099
-Shared mem value of 0+1=1 at dim 49, value 0.009788
-Shared mem value of 0+1=1 at dim 50, value -0.156034
-Shared mem value of 0+1=1 at dim 51, value 0.038994
-Shared mem value of 0+1=1 at dim 52, value -0.161024
-Shared mem value of 0+1=1 at dim 53, value 0.128381
-Shared mem value of 0+1=1 at dim 54, value 0.089599
-Shared mem value of 0+1=1 at dim 55, value 0.063693
-Shared mem value of 0+1=1 at dim 56, value -0.100956
-Shared mem value of 0+1=1 at dim 57, value 0.071739
-Shared mem value of 0+1=1 at dim 58, value 0.090217
-Shared mem value of 0+1=1 at dim 59, value -0.026316
-Shared mem value of 0+1=1 at dim 60, value 0.060562
-Shared mem value of 0+1=1 at dim 61, value 0.099766
-Shared mem value of 0+1=1 at dim 62, value -0.080490
-Shared mem value of 0+1=1 at dim 63, value -0.148016
-Shared mem value of 0+1=1 at dim 0, value -0.180928
-Shared mem value of 0+1=1 at dim 1, value -0.306555
-Shared mem value of 0+1=1 at dim 2, value -0.091961
-Shared mem value of 0+1=1 at dim 3, value -0.138578
-Shared mem value of 0+1=1 at dim 4, value -0.037784
-Shared mem value of 0+1=1 at dim 5, value 0.141103
-Shared mem value of 0+1=1 at dim 6, value -0.000550
-Shared mem value of 0+1=1 at dim 7, value 0.021246
-Shared mem value of 0+1=1 at dim 8, value 0.002942
-Shared mem value of 0+1=1 at dim 9, value 0.164864
-Shared mem value of 0+1=1 at dim 10, value -0.144645
-Shared mem value of 0+1=1 at dim 11, value -0.020285
-Shared mem value of 0+1=1 at dim 12, value -0.011491
-Shared mem value of 0+1=1 at dim 13, value 0.082778
-Shared mem value of 0+1=1 at dim 14, value -0.126609
-Shared mem value of 0+1=1 at dim 15, value 0.213640
-Shared mem value of 0+1=1 at dim 16, value 0.148758
-Shared mem value of 0+1=1 at dim 17, value 0.183432
-Shared mem value of 0+1=1 at dim 18, value 0.164296
-Shared mem value of 0+1=1 at dim 19, value 0.013081
-Shared mem value of 0+1=1 at dim 20, value 0.000313
-Shared mem value of 0+1=1 at dim 21, value 0.054172
-Shared mem value of 0+1=1 at dim 22, value 0.025160
-Shared mem value of 0+1=1 at dim 23, value -0.008301
-Shared mem value of 0+1=1 at dim 24, value -0.191131
-Shared mem value of 0+1=1 at dim 25, value 0.006264
-Shared mem value of 0+1=1 at dim 26, value -0.069475
-Shared mem value of 0+1=1 at dim 27, value -0.145791
-Shared mem value of 0+1=1 at dim 28, value 0.091295
-Shared mem value of 0+1=1 at dim 29, value -0.231531
-Shared mem value of 0+1=1 at dim 30, value 0.123337
-Shared mem value of 0+1=1 at dim 31, value -0.090475
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.001334, right_sum 1.267794, curr_acc -0.366973, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.061946, right_sum 1.267794, curr_acc 0.435716, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.103017, right_sum 1.267794, curr_acc -0.594078, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.039785, right_sum 1.267794, curr_acc -1.108382, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.023531, right_sum 1.267794, curr_acc -0.120650, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.039527, right_sum 1.267794, curr_acc 1.364486, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.186098, right_sum 1.267794, curr_acc 2.228241, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.011980, right_sum 1.267794, curr_acc -0.439224, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.249021, right_sum 1.267794, curr_acc -0.290053, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.008176, right_sum 1.267794, curr_acc -1.553879, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.007449, right_sum 1.267794, curr_acc -0.646570, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.004516, right_sum 1.267794, curr_acc 0.097976, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.068143, right_sum 1.267794, curr_acc 1.133263, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.142872, right_sum 1.267794, curr_acc 1.824483, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.239612, right_sum 1.267794, curr_acc 0.106990, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.132535, right_sum 1.267794, curr_acc 0.020641, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.028099, right_sum 1.267794, curr_acc -0.363766, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.009788, right_sum 1.267794, curr_acc -0.351221, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.156034, right_sum 1.267794, curr_acc 0.624533, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.038994, right_sum 1.267794, curr_acc 2.172545, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.161024, right_sum 1.267794, curr_acc 0.341703, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.128381, right_sum 1.267794, curr_acc 1.340645, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.089599, right_sum 1.267794, curr_acc 0.408616, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.063693, right_sum 1.267794, curr_acc 1.122366, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.100956, right_sum 1.267794, curr_acc 0.776151, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.071739, right_sum 1.267794, curr_acc -1.339988, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.090217, right_sum 1.267794, curr_acc -0.479342, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.026316, right_sum 1.267794, curr_acc -0.456942, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.060562, right_sum 1.267794, curr_acc 0.447205, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.099766, right_sum 1.267794, curr_acc -2.013863, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.080490, right_sum 1.267794, curr_acc -0.739081, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.148016, right_sum 1.267794, curr_acc 0.708801, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.180928, right_sum 1.267794, curr_acc -1.494575, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.306555, right_sum 1.267794, curr_acc -1.940570, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.091961, right_sum 1.267794, curr_acc 0.082995, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.138578, right_sum 1.267794, curr_acc -0.328530, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.037784, right_sum 1.267794, curr_acc 1.222901, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.141103, right_sum 1.267794, curr_acc 0.075095, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.000550, right_sum 1.267794, curr_acc 0.952420, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.021246, right_sum 1.267794, curr_acc 0.967565, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.002942, right_sum 1.267794, curr_acc 0.699545, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.164864, right_sum 1.267794, curr_acc 1.242331, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.144645, right_sum 1.267794, curr_acc 0.819520, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.020285, right_sum 1.267794, curr_acc -1.375369, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.011491, right_sum 1.267794, curr_acc -0.624828, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.082778, right_sum 1.267794, curr_acc 2.184198, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.126609, right_sum 1.267794, curr_acc 1.477114, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.213640, right_sum 1.267794, curr_acc -1.011394, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.148758, right_sum 1.267794, curr_acc -0.094051, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.183432, right_sum 1.267794, curr_acc -0.367001, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.164296, right_sum 1.267794, curr_acc -1.762171, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.013081, right_sum 1.267794, curr_acc 0.003524, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.000313, right_sum 1.267794, curr_acc 0.368343, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.054172, right_sum 1.267794, curr_acc -0.704581, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.025160, right_sum 1.267794, curr_acc 0.796923, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.008301, right_sum 1.267794, curr_acc 1.233929, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.191131, right_sum 1.267794, curr_acc -1.305774, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.006264, right_sum 1.267794, curr_acc 0.696794, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.069475, right_sum 1.267794, curr_acc 0.575045, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.145791, right_sum 1.267794, curr_acc 0.442103, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.091295, right_sum 1.267794, curr_acc 0.681065, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.231531, right_sum 1.267794, curr_acc -0.581090, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc 0.123337, right_sum 1.267794, curr_acc -0.855822, curr_sum 1.102195
-Reducing with shared max 16.144110, shift shared max 18.591951, new max 18.591951, alpha 0.086480, beta 1.000000, right_acc -0.090475, right_sum 1.267794, curr_acc -0.577665, curr_sum 1.102195
--0.223847 -0.342342 -0.061186 -0.120511 0.049054 0.106517 0.059044 0.075718 0.045782 0.196511 -0.053239 -0.100476 -0.047288 0.196054 0.000817 0.091056 0.101484 0.109473 0.008590 0.009660 0.023214 -0.004879 0.067893 0.071019 -0.219427 0.048008 -0.014250 -0.077621 0.108390 -0.203355 0.035597 -0.101346 -0.021940 -0.017511 -0.111421 -0.097886 -0.024511 0.056632 0.004764 -0.018767 0.161608 -0.091077 -0.034977 0.002856 0.021551 0.216972 -0.166243 -0.094358 -0.042981 -0.014856 -0.073628 0.163729 -0.094881 0.176318 0.090163 0.116012 -0.024417 -0.031857 0.035191 -0.047509 0.071616 -0.053687 -0.104213 -0.062582 
+Adding 0 and 1 together at x dimension value 32
+Adding 0 and 1 together at x dimension value 33
+Adding 0 and 1 together at x dimension value 34
+Adding 0 and 1 together at x dimension value 35
+Adding 0 and 1 together at x dimension value 36
+Adding 0 and 1 together at x dimension value 37
+Adding 0 and 1 together at x dimension value 38
+Adding 0 and 1 together at x dimension value 39
+Adding 0 and 1 together at x dimension value 40
+Adding 0 and 1 together at x dimension value 41
+Adding 0 and 1 together at x dimension value 42
+Adding 0 and 1 together at x dimension value 43
+Adding 0 and 1 together at x dimension value 44
+Adding 0 and 1 together at x dimension value 45
+Adding 0 and 1 together at x dimension value 46
+Adding 0 and 1 together at x dimension value 47
+Adding 0 and 1 together at x dimension value 48
+Adding 0 and 1 together at x dimension value 49
+Adding 0 and 1 together at x dimension value 50
+Adding 0 and 1 together at x dimension value 51
+Adding 0 and 1 together at x dimension value 52
+Adding 0 and 1 together at x dimension value 53
+Adding 0 and 1 together at x dimension value 54
+Adding 0 and 1 together at x dimension value 55
+Adding 0 and 1 together at x dimension value 56
+Adding 0 and 1 together at x dimension value 57
+Adding 0 and 1 together at x dimension value 58
+Adding 0 and 1 together at x dimension value 59
+Adding 0 and 1 together at x dimension value 60
+Adding 0 and 1 together at x dimension value 61
+Adding 0 and 1 together at x dimension value 62
+Adding 0 and 1 together at x dimension value 63
+Shared mem value of 0+1=1 at dim 0, value 2.218076
+Shared mem value of 0+1=1 at dim 1, value 0.523166
+Shared mem value of 0+1=1 at dim 2, value 0.346647
+Shared mem value of 0+1=1 at dim 3, value -0.197331
+Shared mem value of 0+1=1 at dim 4, value -1.054589
+Shared mem value of 0+1=1 at dim 5, value 1.277996
+Shared mem value of 0+1=1 at dim 6, value -0.172190
+Shared mem value of 0+1=1 at dim 7, value 0.523788
+Shared mem value of 0+1=1 at dim 8, value 0.056622
+Shared mem value of 0+1=1 at dim 9, value 0.426296
+Shared mem value of 0+1=1 at dim 10, value 0.575005
+Shared mem value of 0+1=1 at dim 11, value -0.641724
+Shared mem value of 0+1=1 at dim 12, value -2.206398
+Shared mem value of 0+1=1 at dim 13, value -0.750803
+Shared mem value of 0+1=1 at dim 14, value 0.010868
+Shared mem value of 0+1=1 at dim 15, value -0.338742
+Shared mem value of 0+1=1 at dim 16, value -1.340680
+Shared mem value of 0+1=1 at dim 17, value -0.585371
+Shared mem value of 0+1=1 at dim 18, value 0.536188
+Shared mem value of 0+1=1 at dim 19, value 0.524623
+Shared mem value of 0+1=1 at dim 20, value 1.141202
+Shared mem value of 0+1=1 at dim 21, value 0.051644
+Shared mem value of 0+1=1 at dim 22, value 0.743952
+Shared mem value of 0+1=1 at dim 23, value -0.481584
+Shared mem value of 0+1=1 at dim 24, value -1.049466
+Shared mem value of 0+1=1 at dim 25, value 0.603899
+Shared mem value of 0+1=1 at dim 26, value -1.722295
+Shared mem value of 0+1=1 at dim 27, value -0.827769
+Shared mem value of 0+1=1 at dim 28, value 1.334703
+Shared mem value of 0+1=1 at dim 29, value 0.483539
+Shared mem value of 0+1=1 at dim 30, value -2.509544
+Shared mem value of 0+1=1 at dim 31, value 0.488001
+Shared mem value of 0+1=1 at dim 0, value 0.900717
+Shared mem value of 0+1=1 at dim 1, value -2.105521
+Shared mem value of 0+1=1 at dim 2, value 0.678418
+Shared mem value of 0+1=1 at dim 3, value -1.234545
+Shared mem value of 0+1=1 at dim 4, value -0.043067
+Shared mem value of 0+1=1 at dim 5, value -1.604667
+Shared mem value of 0+1=1 at dim 6, value -0.752135
+Shared mem value of 0+1=1 at dim 7, value 1.648723
+Shared mem value of 0+1=1 at dim 8, value -0.392479
+Shared mem value of 0+1=1 at dim 9, value -1.403607
+Shared mem value of 0+1=1 at dim 10, value -0.727881
+Shared mem value of 0+1=1 at dim 11, value -0.559430
+Shared mem value of 0+1=1 at dim 12, value -0.768839
+Shared mem value of 0+1=1 at dim 13, value 0.762445
+Shared mem value of 0+1=1 at dim 14, value 1.642317
+Shared mem value of 0+1=1 at dim 15, value -0.159597
+Shared mem value of 0+1=1 at dim 16, value -0.497398
+Shared mem value of 0+1=1 at dim 17, value 0.439589
+Shared mem value of 0+1=1 at dim 18, value -0.758131
+Shared mem value of 0+1=1 at dim 19, value 1.078318
+Shared mem value of 0+1=1 at dim 20, value 0.800801
+Shared mem value of 0+1=1 at dim 21, value 1.680621
+Shared mem value of 0+1=1 at dim 22, value 1.279124
+Shared mem value of 0+1=1 at dim 23, value 1.296423
+Shared mem value of 0+1=1 at dim 24, value 0.610466
+Shared mem value of 0+1=1 at dim 25, value 1.334738
+Shared mem value of 0+1=1 at dim 26, value -0.231624
+Shared mem value of 0+1=1 at dim 27, value 0.041759
+Shared mem value of 0+1=1 at dim 28, value -0.251575
+Shared mem value of 0+1=1 at dim 29, value 0.859859
+Shared mem value of 0+1=1 at dim 30, value -1.384674
+Shared mem value of 0+1=1 at dim 31, value -0.871236
+Shared mem value of 0+1=1 at dim 32, value 0.784587
+Shared mem value of 0+1=1 at dim 33, value 0.028647
+Shared mem value of 0+1=1 at dim 34, value 0.640755
+Shared mem value of 0+1=1 at dim 35, value 0.583247
+Shared mem value of 0+1=1 at dim 36, value 1.066927
+Shared mem value of 0+1=1 at dim 37, value -0.450153
+Shared mem value of 0+1=1 at dim 38, value -0.185267
+Shared mem value of 0+1=1 at dim 39, value 0.752759
+Shared mem value of 0+1=1 at dim 40, value 0.404758
+Shared mem value of 0+1=1 at dim 41, value 0.178466
+Shared mem value of 0+1=1 at dim 42, value 0.264910
+Shared mem value of 0+1=1 at dim 43, value 1.273168
+Shared mem value of 0+1=1 at dim 44, value -0.001311
+Shared mem value of 0+1=1 at dim 45, value -0.303604
+Shared mem value of 0+1=1 at dim 46, value -1.457029
+Shared mem value of 0+1=1 at dim 47, value -0.102335
+Shared mem value of 0+1=1 at dim 48, value -0.599153
+Shared mem value of 0+1=1 at dim 49, value 0.477056
+Shared mem value of 0+1=1 at dim 50, value 0.726177
+Shared mem value of 0+1=1 at dim 51, value 0.091152
+Shared mem value of 0+1=1 at dim 52, value -0.389065
+Shared mem value of 0+1=1 at dim 53, value 0.527916
+Shared mem value of 0+1=1 at dim 54, value -0.012685
+Shared mem value of 0+1=1 at dim 55, value 0.240836
+Shared mem value of 0+1=1 at dim 56, value 0.132535
+Shared mem value of 0+1=1 at dim 57, value 0.764241
+Shared mem value of 0+1=1 at dim 58, value 1.095010
+Shared mem value of 0+1=1 at dim 59, value 0.339891
+Shared mem value of 0+1=1 at dim 60, value 0.719967
+Shared mem value of 0+1=1 at dim 61, value 0.411408
+Shared mem value of 0+1=1 at dim 62, value 1.266532
+Shared mem value of 0+1=1 at dim 63, value -0.768904
+Shared mem value of 0+1=1 at dim 32, value -0.223366
+Shared mem value of 0+1=1 at dim 33, value 1.717361
+Shared mem value of 0+1=1 at dim 34, value 0.318880
+Shared mem value of 0+1=1 at dim 35, value -0.424519
+Shared mem value of 0+1=1 at dim 36, value 0.305721
+Shared mem value of 0+1=1 at dim 37, value -0.774593
+Shared mem value of 0+1=1 at dim 38, value -1.557572
+Shared mem value of 0+1=1 at dim 39, value 0.995636
+Shared mem value of 0+1=1 at dim 40, value -0.879786
+Shared mem value of 0+1=1 at dim 41, value -0.601142
+Shared mem value of 0+1=1 at dim 42, value -1.274151
+Shared mem value of 0+1=1 at dim 43, value 2.122785
+Shared mem value of 0+1=1 at dim 44, value -1.234653
+Shared mem value of 0+1=1 at dim 45, value -0.487914
+Shared mem value of 0+1=1 at dim 46, value -0.913823
+Shared mem value of 0+1=1 at dim 47, value -0.658137
+Shared mem value of 0+1=1 at dim 48, value 0.078024
+Shared mem value of 0+1=1 at dim 49, value 0.525809
+Shared mem value of 0+1=1 at dim 50, value -0.487992
+Shared mem value of 0+1=1 at dim 51, value 1.191369
+Shared mem value of 0+1=1 at dim 52, value -0.814008
+Shared mem value of 0+1=1 at dim 53, value -0.735993
+Shared mem value of 0+1=1 at dim 54, value -1.403248
+Shared mem value of 0+1=1 at dim 55, value 0.036004
+Shared mem value of 0+1=1 at dim 56, value -0.063477
+Shared mem value of 0+1=1 at dim 57, value 0.675615
+Shared mem value of 0+1=1 at dim 58, value -0.097807
+Shared mem value of 0+1=1 at dim 59, value 1.844594
+Shared mem value of 0+1=1 at dim 60, value -1.184537
+Shared mem value of 0+1=1 at dim 61, value 1.383549
+Shared mem value of 0+1=1 at dim 62, value -2.448497
+Shared mem value of 0+1=1 at dim 63, value 0.349150
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.784587, right_sum 1.266532, curr_acc -0.041003, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.028647, right_sum 1.266532, curr_acc -2.146858, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.640755, right_sum 1.266532, curr_acc -0.178783, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.583247, right_sum 1.266532, curr_acc -0.179214, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 1.066927, right_sum 1.266532, curr_acc 1.854065, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc -0.450153, right_sum 1.266532, curr_acc 1.384237, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc -0.185267, right_sum 1.266532, curr_acc 0.292563, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.752759, right_sum 1.266532, curr_acc 0.071508, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.404758, right_sum 1.266532, curr_acc -1.910996, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.178466, right_sum 1.266532, curr_acc -0.545941, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.264910, right_sum 1.266532, curr_acc -0.133152, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 1.273168, right_sum 1.266532, curr_acc 0.938649, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc -0.001311, right_sum 1.266532, curr_acc -0.463160, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc -0.303604, right_sum 1.266532, curr_acc -0.109711, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc -1.457029, right_sum 1.266532, curr_acc -0.419210, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc -0.102335, right_sum 1.266532, curr_acc -0.160610, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc -0.599153, right_sum 1.266532, curr_acc -0.056836, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.477056, right_sum 1.266532, curr_acc -2.109809, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.726177, right_sum 1.266532, curr_acc 0.627363, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.091152, right_sum 1.266532, curr_acc -0.361926, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc -0.389065, right_sum 1.266532, curr_acc -0.864807, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.527916, right_sum 1.266532, curr_acc 1.195771, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc -0.012685, right_sum 1.266532, curr_acc -1.072252, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.240836, right_sum 1.266532, curr_acc 1.987513, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.132535, right_sum 1.266532, curr_acc -1.887783, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.764241, right_sum 1.266532, curr_acc 0.336054, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 1.095010, right_sum 1.266532, curr_acc 0.478311, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.339891, right_sum 1.266532, curr_acc 1.164406, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.719967, right_sum 1.266532, curr_acc 0.124950, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.411408, right_sum 1.266532, curr_acc 0.219215, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 1.266532, right_sum 1.266532, curr_acc 0.665166, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc -0.768904, right_sum 1.266532, curr_acc 0.383442, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 2.218076, right_sum 1.266532, curr_acc 1.266532, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.523166, right_sum 1.266532, curr_acc -0.768904, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.346647, right_sum 1.266532, curr_acc -1.350991, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc -0.197331, right_sum 1.266532, curr_acc 1.378213, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc -1.054589, right_sum 1.266532, curr_acc 0.904205, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 1.277996, right_sum 1.266532, curr_acc 0.993295, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc -0.172190, right_sum 1.266532, curr_acc -1.626036, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.523788, right_sum 1.266532, curr_acc -0.011280, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.056622, right_sum 1.266532, curr_acc 2.052036, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.426296, right_sum 1.266532, curr_acc 0.505292, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.575005, right_sum 1.266532, curr_acc -0.495511, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc -0.641724, right_sum 1.266532, curr_acc -0.897393, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc -2.206398, right_sum 1.266532, curr_acc 1.049951, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc -0.750803, right_sum 1.266532, curr_acc 0.617018, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.010868, right_sum 1.266532, curr_acc -1.073018, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc -0.338742, right_sum 1.266532, curr_acc -0.915917, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc -1.340680, right_sum 1.266532, curr_acc -1.356248, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc -0.585371, right_sum 1.266532, curr_acc 1.694974, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.536188, right_sum 1.266532, curr_acc 0.693078, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.524623, right_sum 1.266532, curr_acc 1.942001, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 1.141202, right_sum 1.266532, curr_acc -0.210965, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.051644, right_sum 1.266532, curr_acc -0.159783, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.743952, right_sum 1.266532, curr_acc -0.036876, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc -0.481584, right_sum 1.266532, curr_acc -1.398738, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc -1.049466, right_sum 1.266532, curr_acc 0.986240, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.603899, right_sum 1.266532, curr_acc -0.283507, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc -1.722295, right_sum 1.266532, curr_acc 0.139984, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc -0.827769, right_sum 1.266532, curr_acc 0.075402, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 1.334703, right_sum 1.266532, curr_acc -0.458325, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.483539, right_sum 1.266532, curr_acc 0.070723, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc -2.509544, right_sum 1.266532, curr_acc -0.012814, curr_sum 1.760237
+Reducing with shared max 18.199940, shift shared max 1.760237, new max 18.199940, alpha 1.000000, beta 0.000000, right_acc 0.488001, right_sum 1.266532, curr_acc 0.096644, curr_sum 1.760237
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 0.900717, right_sum -2.448497, curr_acc -2.448497, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -2.105521, right_sum -2.448497, curr_acc 0.349150, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 0.678418, right_sum -2.448497, curr_acc 1.767997, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -1.234545, right_sum -2.448497, curr_acc 0.306588, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -0.043067, right_sum -2.448497, curr_acc 1.428077, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -1.604667, right_sum -2.448497, curr_acc -1.341266, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -0.752135, right_sum -2.448497, curr_acc 0.586306, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 1.648723, right_sum -2.448497, curr_acc -0.862537, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -0.392479, right_sum -2.448497, curr_acc -0.229691, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -1.403607, right_sum -2.448497, curr_acc -1.588423, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -0.727881, right_sum -2.448497, curr_acc 0.189446, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -0.559430, right_sum -2.448497, curr_acc 0.103665, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -0.768839, right_sum -2.448497, curr_acc 1.793398, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 0.762445, right_sum -2.448497, curr_acc -0.113905, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 1.642317, right_sum -2.448497, curr_acc -1.142008, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -0.159597, right_sum -2.448497, curr_acc 1.259238, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -0.497398, right_sum -2.448497, curr_acc 0.395835, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 0.439589, right_sum -2.448497, curr_acc 0.255281, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -0.758131, right_sum -2.448497, curr_acc 0.298145, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 1.078318, right_sum -2.448497, curr_acc 0.504873, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 0.800801, right_sum -2.448497, curr_acc -0.195648, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 1.680621, right_sum -2.448497, curr_acc 0.590846, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 1.279124, right_sum -2.448497, curr_acc 0.148616, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 1.296423, right_sum -2.448497, curr_acc 0.616665, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 0.610466, right_sum -2.448497, curr_acc -0.866068, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 1.334738, right_sum -2.448497, curr_acc 0.340958, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -0.231624, right_sum -2.448497, curr_acc -0.705760, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 0.041759, right_sum -2.448497, curr_acc 0.821497, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -0.251575, right_sum -2.448497, curr_acc -0.140333, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 0.859859, right_sum -2.448497, curr_acc 0.760059, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -1.384674, right_sum -2.448497, curr_acc 0.549636, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -0.871236, right_sum -2.448497, curr_acc -0.565383, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -0.223366, right_sum -2.448497, curr_acc -1.304310, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 1.717361, right_sum -2.448497, curr_acc -0.371727, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 0.318880, right_sum -2.448497, curr_acc 1.512722, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -0.424519, right_sum -2.448497, curr_acc -1.477022, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 0.305721, right_sum -2.448497, curr_acc 1.741397, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -0.774593, right_sum -2.448497, curr_acc -1.550653, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -1.557572, right_sum -2.448497, curr_acc 0.269150, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 0.995636, right_sum -2.448497, curr_acc 2.130475, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -0.879786, right_sum -2.448497, curr_acc -0.419371, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -0.601142, right_sum -2.448497, curr_acc -0.106591, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -1.274151, right_sum -2.448497, curr_acc 0.953900, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 2.122785, right_sum -2.448497, curr_acc -0.205207, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -1.234653, right_sum -2.448497, curr_acc 1.230525, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -0.487914, right_sum -2.448497, curr_acc 1.171438, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -0.913823, right_sum -2.448497, curr_acc -0.689466, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -0.658137, right_sum -2.448497, curr_acc 1.322546, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 0.078024, right_sum -2.448497, curr_acc -0.878819, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 0.525809, right_sum -2.448497, curr_acc -0.208855, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -0.487992, right_sum -2.448497, curr_acc 1.052535, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 1.191369, right_sum -2.448497, curr_acc 0.758170, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -0.814008, right_sum -2.448497, curr_acc 1.175965, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -0.735993, right_sum -2.448497, curr_acc 0.253558, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -1.403248, right_sum -2.448497, curr_acc 1.070565, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 0.036004, right_sum -2.448497, curr_acc 0.442006, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -0.063477, right_sum -2.448497, curr_acc -2.057367, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 0.675615, right_sum -2.448497, curr_acc 1.553415, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -0.097807, right_sum -2.448497, curr_acc 0.450048, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 1.844594, right_sum -2.448497, curr_acc 0.921399, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -1.184537, right_sum -2.448497, curr_acc -0.303439, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 1.383549, right_sum -2.448497, curr_acc 0.155951, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc -2.448497, right_sum -2.448497, curr_acc -0.253718, curr_sum 1.012444
+Reducing with shared max 32.323616, shift shared max 1.012444, new max 32.323616, alpha 1.000000, beta 0.000000, right_acc 0.349150, right_sum -2.448497, curr_acc -0.156747, curr_sum 1.012444
+-2.418402 0.344859 1.746266 0.302820 1.410524 -1.324780 0.579099 -0.851935 -0.226868 -1.568899 0.187117 0.102391 1.771354 -0.112505 -1.127971 1.243761 0.390970 0.252143 0.294481 0.498668 -0.193243 0.583584 0.146789 0.609086 -0.855423 0.336767 -0.697085 0.811400 -0.138608 0.750717 0.542880 -0.558434 -1.288279 -0.367158 1.494129 -1.458868 1.719993 -1.531594 0.265841 2.104289 -0.414217 -0.105281 0.942176 -0.202685 1.215401 1.157040 -0.680992 1.306290 -0.868017 -0.206288 1.039598 0.748851 1.161511 0.250441 1.057406 0.436573 -2.032080 1.534321 0.444516 0.910074 -0.299709 0.154034 -0.250600 -0.154820 
+0.719524 -0.436818 -0.767505 0.782970 0.513684 0.564296 -0.923760 -0.006408 1.165773 0.287059 -0.281503 -0.509814 0.596483 0.350531 -0.609587 -0.520338 -0.770492 0.962924 0.393741 1.103261 -0.119850 -0.090773 -0.020949 -0.794630 0.560288 -0.161062 0.079526 0.042836 -0.260377 0.040178 -0.007280 0.054904 -0.023294 -1.219642 -0.101568 -0.101813 1.053305 0.786392 0.166207 0.040624 -1.085647 -0.310152 -0.075645 0.533252 -0.263124 -0.062327 -0.238156 -0.091243 -0.032289 -1.198594 0.356408 -0.205612 -0.491302 0.679324 -0.609152 1.129117 -1.072460 0.190914 0.271731 0.661505 0.070985 0.124537 0.377885 0.217835 
 Works!

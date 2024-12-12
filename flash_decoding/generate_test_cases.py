@@ -2,18 +2,18 @@ import torch
 import os
 torch.manual_seed(42)
 
-B = 1
+B = 2
 D = 64
-T = 128
+T = 512
 
 q = torch.randn((B, 1, D))
 k = torch.randn((B, T, D))
-# v = torch.randn((B, T, D))
-v = torch.cat(
-    (torch.randn((B, T // 2, D)),
-    torch.zeros((B, T // 2, D))),
-    dim=1
-)
+v = torch.randn((B, T, D))
+# v = torch.cat(
+#     (torch.randn((B, T // 2, D)),
+#     torch.zeros((B, T // 2, D))),
+#     dim=1
+# )
 
 print("Queries: ", q)
 print("Keys: ", k)

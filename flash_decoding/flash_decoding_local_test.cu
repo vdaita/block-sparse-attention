@@ -29,8 +29,8 @@ float getNextFloat() {
 }
 
 int main(int argc, char** argv){
-    int B = 1;
-    int T = 128;
+    int B = 2;
+    int T = 512;
 
     float* q = (float*) malloc(B * D * sizeof(float));
     float* k = (float*) malloc(B * T * D * sizeof(float));
@@ -139,7 +139,7 @@ int main(int argc, char** argv){
 
     for(int b = 0; b < B; b++){
         for(int d = 0; d < D; d++){
-            printf("%f ", reduced_o[d]);
+            printf("%f ", reduced_o[b * D + d]);
         }
         printf("\n");
     }
@@ -147,8 +147,9 @@ int main(int argc, char** argv){
     bool works = true;
     for(int i = 0; i < B * D; i++){
         if(abs(reduced_o[i] - target_output[i]) > 0.02){
+            printf("Mismatch at index %d, %f vs %f\n", i, reduced_o[i], target_output[i]);
             works = false;
-            break;
+            // break;
         }
     }
 
