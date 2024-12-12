@@ -7,6 +7,17 @@
 #include <ctype.h>
 #include <errno.h>
 
+// GPT
+void checkLastCudaError() {
+    cudaError_t error = cudaGetLastError(); // Get the last error
+    if (error != cudaSuccess) {
+        printf("CUDA Error: %s\n", cudaGetErrorString(error)); // Print the error string
+    } else {
+        printf("No CUDA error.\n");
+    }
+}
+
+
 // Claude
 float getNextFloat() {
     float value;
@@ -19,7 +30,7 @@ float getNextFloat() {
 
 int main(int argc, char** argv){
     int B = 1;
-    int T = 32;
+    int T = 64;
 
     float* q = (float*) malloc(B * D * sizeof(float));
     float* k = (float*) malloc(B * T * D * sizeof(float));
@@ -69,9 +80,15 @@ int main(int argc, char** argv){
     cudaMalloc((void**) &device_o, B * D * sizeof(float)); 
     float* o = (float*) malloc(B * D * sizeof(float));
 
-    int num_blocks_for_head = min((T + BLOCK_TOKENS - 1) / BLOCK_TOKENS, 8);
+    int num_blocks_for_head = min((T + BLOCK_TOKENS - 1) / BLOCK_TOKENS, 1);
     dim3 gridDim(1, num_blocks_for_head, B);
     dim3 blockDim(BLOCK_WIDTH, BLOCK_TOKENS, 1);
+
+    cudaDeviceProp prop;
+    cudaGetDeviceProperties(&prop, 0);
+    printf("Shared memory per block: %d bytes\n", prop.sharedMemPerBlock);
+
+    printf("Num blocks for head %d\n", num_blocks_for_head);
 
     shared_split_k_kernel<<<gridDim, blockDim>>>(
         device_q,
@@ -81,6 +98,8 @@ int main(int argc, char** argv){
         B,
         T
     );
+
+    checkLastCudaError();
 
     cudaMemcpy(o, device_o, B * D * sizeof(float), cudaMemcpyDeviceToHost);
 

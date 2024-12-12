@@ -63,35 +63,36 @@ void shared_split_k_kernel(
     float values[D / BLOCK_WIDTH] = {0};
     for(int i = start_token_kv; i < T; i += BLOCK_TOKENS * num_blocks_for_head){ // this means that T must be padded to the nearest multiple of 32
         // load the right token for this dimension
+        printf("%d %d %d processing idx: %d\n", by, tx, ty, i);
         float acc = 0.0f;
         for(int d = tx; d < D; d += BLOCK_WIDTH){
+            printf("%d %d %d processing dimension: %d\n", by, tx, ty, d);
             acc += shared_q[d] * K[batch * T * D + i * D + d]; // d is related to tx, so memory accesses should be coalesced
         }
+        __syncwarp();
         acc = warp_add_and_broadcast(acc);
-
-        // printf("%d %d %d acc: %f\n", by, ty, tx, acc);
+        printf("%d %d %d acc: %f\n", by, tx, ty, acc);
 
         float prev_max_qk = max_qk;
         max_qk = fmaxf(acc, max_qk);
         float alpha = expf(prev_max_qk - max_qk);
         float normalized_weight = expf(acc - max_qk);
-        sum_qk *= alpha;
-        sum_qk += normalized_weight;
+        sum_qk = sum_qk * alpha + normalized_weight;
 
         // now that the accumulator has the weight for the entire thing
         for(int di = 0; di < D / BLOCK_WIDTH; di++){
             int d = tx + di * BLOCK_WIDTH;
-            values[di] *= alpha;
-            values[di] += normalized_weight * V[batch * T * D + i * D + d];
-            // printf("%d %d %d writing value to dim: %d %f with alpha %f and nw %f\n", by, ty, tx, d, values[di], alpha, normalized_weight);
+            float c_v = V[batch * T * D + i * D + d];
+            values[di] = values[di] * alpha + normalized_weight * c_v;
+            printf("%d %d %d adding value to dim: %d %f with alpha %f and nw %f\n", by, tx, ty, d, values[di], alpha, normalized_weight);
         }
     }
     for(int i = 0; i < D / BLOCK_WIDTH; i++){
         shared_out[ty][tx + i * BLOCK_WIDTH] = values[i];
     }
 
-    // printf("%d %d %d max: %f\n", by, ty, tx, max_qk);
-    // printf("%d %d %d sum: %f\n", by, ty, tx, sum_qk);
+    printf("%d %d %d max: %f\n", by, tx, ty, max_qk);
+    printf("%d %d %d sum: %f\n", by, tx, ty, sum_qk);
 
     if(tx == 0){
         shared_max[ty] = max_qk;
@@ -110,9 +111,14 @@ void shared_split_k_kernel(
     // adjust the sum and the values
     float local_max_qk = max_qk;
     max_qk = warp_max_and_broadcast(max_qk);
+    __syncwarp();
+
     float alpha = expf(local_max_qk - max_qk); // expf curr_max - new_max
     sum_qk *= alpha;
+    __syncwarp();
+
     sum_qk = warp_add_and_broadcast(sum_qk); // now, each warp has the same sum from adding up all of the sums adjusted by alpha
+
     printf("Global values: tx %d ty %d local_max %f global_max %f alpha %f sum %f\n", tx, ty, local_max_qk, max_qk, alpha, sum_qk);
 
     float tm_coalesced_out[D / BLOCK_WIDTH];
@@ -123,7 +129,8 @@ void shared_split_k_kernel(
         float value = shared_out[tx][d] * alpha;
         // add the values together
         value = warp_add_and_broadcast(value);
-        tm_coalesced_out[(d - ty) / BLOCK_WIDTH] = value;
+        __syncwarp();
+        tm_coalesced_out[d / BLOCK_WIDTH] = value;
     }
 
     if(tx == 0){
