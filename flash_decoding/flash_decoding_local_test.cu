@@ -107,4 +107,18 @@ int main(int argc, char** argv){
         printf("%f ", o[i]);
     }
     printf("\n");
+
+    bool works = true;
+    for(int i = 0; i < D; i++){
+        if(abs(o[i] - target_output[i]) > 0.02){
+            works = false;
+            break;
+        }
+    }
+
+    if(works){
+        printf("Works!\n");
+    } else {
+        printf("Doesn't work!\n");
+    }
 }
