@@ -2,7 +2,7 @@
 // #include <torch/extension.h>
 #include <stdio.h>
 
-#define D 128
+#define D 32
 #define BLOCK_WIDTH 32 // perform some type of calculation
 #define BLOCK_TOKENS 32
 
@@ -67,14 +67,14 @@ void shared_split_k_kernel(
         for(int d = tx; d < D; d += BLOCK_WIDTH){
             acc += shared_q[d] * K[batch * T * D + i * D + d]; // d is related to tx, so memory accesses should be coalesced
         }
-        acc = warp_add_and_broadcast(acc); // TODO: implement
+        acc = warp_add_and_broadcast(acc);
 
-        // TODO: make sure you scale the number down and update the local sum
         float prev_max_qk = max_qk;
         max_qk = fmaxf(acc, max_qk);
         float alpha = expf(prev_max_qk - max_qk);
         float normalized_weight = expf(acc - max_qk);
         sum_qk *= alpha;
+        sum_qk += normalized_weight;
 
         // now that the accumulator has the weight for the entire thing
         for(int di = 0; di < 4; di++){
@@ -87,8 +87,8 @@ void shared_split_k_kernel(
         shared_out[ty][tx + i * BLOCK_WIDTH] = values[i];
     }
 
-    printf("%d %d %d max: %f", by, ty, tx, max_qk);
-    printf("%d %d %d sum: %f", by, ty, tx, sum_qk);
+    printf("%d %d %d max: %f\n", by, ty, tx, max_qk);
+    printf("%d %d %d sum: %f\n", by, ty, tx, sum_qk);
 
     if(ty == 0){
         shared_max[ty] = max_qk;
