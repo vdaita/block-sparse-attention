@@ -2,6 +2,20 @@
 #include "flash_decoding.cuh"
 #include <cmath>
 #include <random>
+#include <stdio.h>
+#include <math.h>
+#include <ctype.h>
+#include <errno.h>
+
+// Claude
+float getNextFloat() {
+    float value;
+    if (scanf("%f", &value) == 1) {
+        return value;
+    }
+    // Handle error or end of input
+    return 0.0; // Or use a special value to indicate error
+}
 
 int main(int argc, char** argv){
     int B = 1;
@@ -18,17 +32,34 @@ int main(int argc, char** argv){
     float* device_v; 
     cudaMalloc((void**) &device_v, B * T * D * sizeof(float));
 
-    std::mt19937 gen(42);
-    std::uniform_real_distribution<float> dist(-1.0f, 1.0f);
-
     for(int i = 0; i < B * D; i++){
-        q[i] = dist(gen);
+        q[i] = getNextFloat();
     }
 
     for(int i = 0; i < B * T * D; i++){
-        k[i] = dist(gen);
-        v[i] = dist(gen);
+        k[i] = getNextFloat();
     }
+
+    for(int i = 0; i < B * T * D; i++){
+        v[i] = getNextFloat();
+    }
+
+    float* target_output = (float*) malloc(B * D * sizeof(float));
+    for(int i = 0; i < B * D; i++){
+        target_output[i] = getNextFloat();
+    }
+
+    // std::mt19937 gen(42);
+    // std::uniform_real_distribution<float> dist(-1.0f, 1.0f);
+
+    // for(int i = 0; i < B * D; i++){
+    //     q[i] = dist(gen);
+    // }
+
+    // for(int i = 0; i < B * T * D; i++){
+    //     k[i] = dist(gen);
+    //     v[i] = dist(gen);
+    // }
 
     cudaMemcpy(device_q, q, B * D * sizeof(float), cudaMemcpyHostToDevice);
     cudaMemcpy(device_k, k, B * T * D * sizeof(float), cudaMemcpyHostToDevice);
