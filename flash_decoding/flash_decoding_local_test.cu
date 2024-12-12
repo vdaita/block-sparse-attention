@@ -29,8 +29,8 @@ float getNextFloat() {
 }
 
 int main(int argc, char** argv){
-    int B = 1;
-    int T = 128;
+    int B = 2;
+    int T = 512;
 
     float* q = (float*) malloc(B * D * sizeof(float));
     float* k = (float*) malloc(B * T * D * sizeof(float));
@@ -130,8 +130,8 @@ int main(int argc, char** argv){
     // }
 
     bool works = true;
-    for(int i = 0; i < D; i++){
-        if(abs((o[i] / o_sum[0]) - target_output[i]) > 0.02){
+    for(int i = 0; i < B * D * num_blocks_per_head; i++){
+        if(abs((o[i] / o_sum[i / D]) - target_output[i]) > 0.02){
             works = false;
             break;
         }

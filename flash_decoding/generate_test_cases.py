@@ -2,41 +2,48 @@ import torch
 import os
 torch.manual_seed(42)
 
-B = 1
+B = 2
 D = 64
-T = 128
+T = 512
 
+q = torch.randn((B, 1, D))
+k = torch.randn((B, T, D))
+v_1 = torch.randn((B, T // 2, D))
+v_2 = torch.zeros((B, T // 2, D))
+v = torch.cat((v_1, v_2), dim=1)
+
+print("Queries: ", q)
+print("Keys: ", k)
+print("Values: ", v)
 
 with open("test.in", "w+") as f:
-    outputs = []
-    for b in range(B):
-        q = torch.randn((1, D))
-        k = torch.randn((T, D))
-        v = torch.randn((T, D))
+    for x in q.flatten():
+        f.write(str(float(x)) + "\n")
 
-        print("Queries: ", q.shape)
-        print("Keys: ", k.shape)
-        print("Values: ", v.shape)
-
-        for x in q.flatten():
-            f.write(str(float(x)) + "\n")
-
-        for x in k.flatten():
-            f.write(str(float(x)) + "\n")
-            
-        for x in v.flatten():
-            f.write(str(float(x)) + "\n")
-
-        attention = torch.matmul(q, k.transpose(-2, -1))
+    for x in k.flatten():
+        f.write(str(float(x)) + "\n")
         
-        flat_attention = attention.flatten()
-        # for i in range(T):
-        #     print("Token: ", i, " weight: ", str(float(flat_attention[i])))
+    for x in v.flatten():
+        f.write(str(float(x)) + "\n")
 
-        attention = torch.nn.functional.softmax(attention, dim=-1)
-        output = torch.matmul(attention, v)
-        for x in output.flatten():
-            outputs.append(str(float(x)))
+    # Compute attention across the batch
+    attention = torch.matmul(q, k.transpose(-2, -1))  # (batch_size, seq_len, seq_len)
 
-    for output in outputs:
-        print(output)
+    # Flatten the attention matrix for each batch element
+    flat_attention = attention.flatten(start_dim=1)  # Flatten per sequence for each batch
+    print(flat_attention.shape)
+
+    # Print attention weights per token for each batch (optional)
+    for batch_idx in range(B):
+        print(f"Batch {batch_idx}:")
+        for i in range(T):
+            print(f"  Token: {i}, weight: {flat_attention[batch_idx, i]}")
+
+    # Apply softmax to the attention across the last dimension (sequence length)
+    attention = torch.nn.functional.softmax(attention, dim=-1)  # (batch_size, seq_len, seq_len)
+
+    # Compute the output by applying attention to the value vectors
+    output = torch.matmul(attention, v)  # (batch_size, seq_len, dim)
+
+    for x in output.flatten():
+        f.write(str(float(x)) + "\n")
