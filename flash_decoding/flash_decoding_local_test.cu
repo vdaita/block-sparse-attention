@@ -30,7 +30,7 @@ float getNextFloat() {
 
 int main(int argc, char** argv){
     int B = 1;
-    int T = 64;
+    int T = 128;
 
     float* q = (float*) malloc(B * D * sizeof(float));
     float* k = (float*) malloc(B * T * D * sizeof(float));
@@ -76,7 +76,7 @@ int main(int argc, char** argv){
     cudaMemcpy(device_k, k, B * T * D * sizeof(float), cudaMemcpyHostToDevice);
     cudaMemcpy(device_v, v, B * T * D * sizeof(float), cudaMemcpyHostToDevice);
 
-    int num_blocks_per_head = min((T + BLOCK_TOKENS - 1) / BLOCK_TOKENS, 1);
+    int num_blocks_per_head = min((T + BLOCK_TOKENS - 1) / BLOCK_TOKENS, 1); // at most 2 blocks per for some reason (and then reduce later)
     dim3 gridDim(1, num_blocks_per_head, B);
     dim3 blockDim(BLOCK_WIDTH, BLOCK_TOKENS, 1);
 
@@ -114,10 +114,20 @@ int main(int argc, char** argv){
     cudaMemcpy(o_sum, device_o_sum, B * num_blocks_per_head * sizeof(float), cudaMemcpyDeviceToHost);
     cudaMemcpy(o_max, device_o_max, B * num_blocks_per_head * sizeof(float), cudaMemcpyDeviceToHost);
 
-    for(int i = 0; i < D; i++){
-        printf("%f ", (o[i] / o_sum[0]));
+    for(int i = 0; i < B * D * num_blocks_per_head; i++){
+        printf("%f ", (o[i] / o_sum[i / D]));
     }
     printf("\n");
+
+    // for(int b = 0; b < B; b++){
+    //     for(int n = 0; n < num_blocks_per_head; n++){
+    //         for(int i = 0; i < D; i++){
+    //             int idx = b * num_blocks_per_head + n;
+    //             printf("%f ", (o[idx * D + i] / o_sum[idx]));
+    //         }
+    //         printf("\n");
+    //     }
+    // }
 
     bool works = true;
     for(int i = 0; i < D; i++){
@@ -126,6 +136,17 @@ int main(int argc, char** argv){
             break;
         }
     }
+    // for(int b = 0; b < B; b++){
+    //     for(int n = 0; n < num_blocks_per_head; n++){
+    //         for(int i = 0; i < D; i++){
+    //             int idx = b * num_blocks_per_head + n;
+    //             if(abs((o[idx * D + i] / o_sum[idx]) - target_output[idx * D + i]) > 0.02){
+    //                 works = false;
+    //                 break;
+    //             }
+    //         }
+    //     }   
+    // }
 
     if(works){
         printf("Works!\n");

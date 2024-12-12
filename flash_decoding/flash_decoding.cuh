@@ -2,7 +2,7 @@
 // #include <torch/extension.h>
 #include <stdio.h>
 
-#define D 32
+#define D 64
 #define BLOCK_WIDTH 32 // perform some type of calculation
 #define BLOCK_TOKENS 32
 
@@ -63,10 +63,12 @@ void shared_split_k_kernel(
     float sum_qk = 0.0f;
     float max_qk = -INFINITY;
     float values[D / BLOCK_WIDTH] = {0};
+    float acc = 0.0f;
+
     for(int i = start_token_kv; i < T; i += BLOCK_TOKENS * num_blocks_per_head){ // this means that T must be padded to the nearest multiple of 32
         // load the right token for this dimension
         printf("%d %d %d processing idx: %d\n", by, tx, ty, i);
-        float acc = 0.0f;
+        acc = 0.0f;
         for(int d = tx; d < D; d += BLOCK_WIDTH){
             printf("%d %d %d processing dimension: %d\n", by, tx, ty, d);
             acc += shared_q[d] * K[batch * T * D + i * D + d]; // d is related to tx, so memory accesses should be coalesced
@@ -84,9 +86,8 @@ void shared_split_k_kernel(
         // now that the accumulator has the weight for the entire thing
         for(int di = 0; di < D / BLOCK_WIDTH; di++){
             int d = tx + di * BLOCK_WIDTH;
-            float c_v = V[batch * T * D + i * D + d];
-            values[di] = values[di] * alpha + normalized_weight * c_v;
-            printf("%d %d %d adding value to dim: %d %f with alpha %f and nw %f\n", by, tx, ty, d, values[di], alpha, normalized_weight);
+            values[di] = values[di] * alpha + normalized_weight * V[batch * T * D + i * D + d];
+            // printf("%d %d %d adding value to dim: %d %f with alpha %f and nw %f\n", by, tx, ty, d, values[di], alpha, normalized_weight);
         }
     }
     for(int i = 0; i < D / BLOCK_WIDTH; i++){
@@ -153,6 +154,13 @@ void shared_split_k_kernel(
             output_max[batch * num_blocks_per_head + by] = max_qk;
         }
     }
+}
+
+__global__
+void reduce(
+
+) {
+
 }
 
 // torch::Tensor forward(
