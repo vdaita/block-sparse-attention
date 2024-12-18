@@ -3,7 +3,7 @@ import math
 import torch
 from torch.nn import functional as F
 from torch.utils.cpp_extension import load
-from kernels import get_file_with_settings
+from block_sparse_kernel_eval.kernels import get_file_with_settings
 from torch.profiler import profile, ProfilerActivity, schedule
 
 os.environ["TORCH_CUDA_ARCH_LIST"] = "8.0"

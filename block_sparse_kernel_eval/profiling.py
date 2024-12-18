@@ -4,7 +4,7 @@ import torch
 from torch.nn import functional as F
 from torch.utils.cpp_extension import load
 import torch
-from kernels import get_v1, get_v2, get_v3, get_v4, get_v5, get_v7
+from block_sparse_kernel_eval.kernels import get_v1, get_v2, get_v3, get_v4, get_v5, get_v7
 from flash_attn import flash_attn_func
 
 os.environ["TORCH_CUDA_ARCH_LIST"] = "8.0"
